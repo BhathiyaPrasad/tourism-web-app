@@ -1,8 +1,11 @@
 import React from 'react'
+import MainLayout from './../../components/layout/MainLayout';
 
 function places() {
   return (
-    <div>places</div>
+    <div>
+      <MainLayout />
+    </div>
   )
 }
 

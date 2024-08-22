@@ -1,8 +1,11 @@
 import React from 'react'
+import MainLayout from './../../components/layout/MainLayout';
 
 function contact() {
   return (
-    <div>contact</div>
+    <div>
+      <MainLayout />
+    </div>
   )
 }
 

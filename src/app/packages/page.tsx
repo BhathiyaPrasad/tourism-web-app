@@ -1,8 +1,11 @@
 import React from 'react'
+import MainLayout from './../../components/layout/MainLayout';
 
 function packages() {
   return (
-    <div>packages</div>
+    <div>
+     <MainLayout />
+    </div>
   )
 }
 
