@@ -1,5 +1,6 @@
 import React from "react"
 import Link from "next/link";
+import GoogleTranslate from './../../GoogleTranslate';
 
 const Navbar = () => {
 
@@ -45,7 +46,7 @@ const Navbar = () => {
             </ul>
         </div>
         <div className="navbar-end">
-            <Link href='' className="btn">Language</Link>
+            <Link href='' className="btn"><GoogleTranslate/></Link>
         </div>
     </div>
 </>

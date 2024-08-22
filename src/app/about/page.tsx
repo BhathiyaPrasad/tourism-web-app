@@ -7,8 +7,6 @@ function about() {
     <div>
       <MainLayout />
 
-      <div>about</div>
-
     </div>
   )
 }
