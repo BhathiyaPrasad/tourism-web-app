@@ -6,9 +6,5 @@ interface GoogleTranslate {
   }
   
   interface Window {
-    google: {
-      translate: GoogleTranslate;
-    };
-    googleTranslateElementInit?: () => void;
+    gtranslateSettings: Record<string, any>;
   }
-  
