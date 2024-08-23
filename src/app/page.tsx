@@ -6,10 +6,6 @@ export default function Home() {
     <div>
       <MainLayout />
     
- 
-    
-
-   
     </div>
   );
 }
