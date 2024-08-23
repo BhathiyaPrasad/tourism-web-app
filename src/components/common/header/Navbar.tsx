@@ -1,6 +1,7 @@
+'use client'
 import React from "react"
 import Link from "next/link";
-
+import Translate from '../../translate/Translate'
 
 const Navbar = () => {
 
@@ -46,7 +47,8 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-             
+                <Translate />
+        
 
 
                 </div>
