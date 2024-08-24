@@ -6,7 +6,7 @@ function about() {
   return (
     <div>
       <MainLayout />
-     About 
+   
     </div>
   )
 }
