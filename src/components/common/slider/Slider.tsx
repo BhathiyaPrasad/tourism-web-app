@@ -7,11 +7,11 @@ import Fade from 'embla-carousel-fade';
 import './slider.css';
 
 const videos = [
-  { src: "/viedeos/viedeo1 (1).mp4", topic: "Explore Sri Lanka's Ancient Wonders" },
+  { src: "/viedeos/viedeo1 (6).mp4", topic: "Explore Sri Lanka's Ancient Wonders" },
   { src: "/viedeos/viedeo1 (2).mp4", topic: "Discover Pristine Beaches" },
   { src: "/viedeos/viedeo1 (3).mp4", topic: "Experience Rich Cultural Heritage" },
   { src: "/viedeos/viedeo1 (4).mp4", topic: "Adventure in Lush Landscapes" },
-  { src: "/viedeos/viedeo1 (6).mp4", topic: "Taste Exotic Culinary Delights" },
+  { src: "/viedeos/viedeo1 (1).mp4", topic: "Taste Exotic Culinary Delights" },
   { src: "/viedeos/viedeo1 (7).mp4", topic: "Encounter Diverse Wildlife" },
 ];
 
