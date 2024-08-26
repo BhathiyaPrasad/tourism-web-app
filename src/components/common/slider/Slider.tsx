@@ -7,7 +7,7 @@ import Fade from 'embla-carousel-fade';
 import './slider.css';
 
 const videos = [
-  { src: "/viedeos/viedeo1 (6).webm", topic: "Explore Sri Lanka's Ancient Wonders" },
+  { src: "/viedeos/viedeo1 (6).mp4", topic: "Explore Sri Lanka's Ancient Wonders" },
   { src: "/viedeos/viedeo1 (2).webm", topic: "Discover Pristine Beaches" },
   { src: "/viedeos/viedeo1 (3).webm", topic: "Experience Rich Cultural Heritage" },
   { src: "/viedeos/viedeo1 (4).webm", topic: "Adventure in Lush Landscapes" },

@@ -29,7 +29,7 @@ const Navbar = () => {
                         <ul
                             tabIndex={0}
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            <li className={styles.textWhite}><Link href='/'>Home</Link></li>
+                            <li><Link href='/'>Home</Link></li>
                             <li><Link href='/packages'>Packages</Link></li>
                             <li><Link href='/places'>Places</Link></li>
                             <li><Link href='/about'>About Us</Link></li>
