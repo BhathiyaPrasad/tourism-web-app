@@ -2,6 +2,8 @@
 
 import React, { useEffect } from 'react';
 import Script from 'next/script';
+import Styles from './Translate.module.css';
+
 
 const TranslationWidget: React.FC = () => {
   useEffect(() => {
@@ -30,7 +32,7 @@ const TranslationWidget: React.FC = () => {
   }, []);
 
   return (
-    <div id="gt-mordadam-43217984" className='text-white'>
+    <div id="gt-mordadam-43217984" className={Styles.translate}>
       <Script
         src="/js/gt.min.js" // Make sure this path is correct and the file is available in the public directory
         strategy="afterInteractive"
