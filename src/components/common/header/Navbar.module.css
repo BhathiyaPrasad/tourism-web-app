@@ -1,8 +1,9 @@
 /* Navbar.module.css */
 
 .logo {
-  width:120px ;
-  height:62px;
+  width:130px ;
+  height:75px;
+  loading:'lazy'
 
 }
 
