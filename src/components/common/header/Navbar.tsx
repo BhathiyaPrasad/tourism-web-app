@@ -36,7 +36,7 @@ const Navbar = () => {
                             <li><Link href='/contact'>Contact</Link></li>
                         </ul>
                     </div>
-                    <Link href='' className={`${styles.logoLink}`}>
+                    <Link href='/' className={`${styles.logoLink}`}>
                         <Image className={styles.logo} src={Logo} alt='Jagath Travels Logo' />
                         <span className="ml-2"></span>
                     </Link>
