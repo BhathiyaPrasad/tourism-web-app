@@ -30,7 +30,7 @@ const TranslationWidget: React.FC = () => {
   }, []);
 
   return (
-    <div id="gt-mordadam-43217984">
+    <div id="gt-mordadam-43217984" className='text-white'>
       <Script
         src="/js/gt.min.js" // Make sure this path is correct and the file is available in the public directory
         strategy="afterInteractive"
