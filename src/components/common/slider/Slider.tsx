@@ -1,62 +1,69 @@
 "use client";
 
-import React from "react";
-import Image from "next/image";
-import slider01 from '../../../../public/assets/sigiriya.jpg';
-import useEmblaCarousel from 'embla-carousel-react';
-import Autoplay from 'embla-carousel-autoplay';
-import './slider.css';
-import { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import useEmblaCarousel, { UseEmblaCarouselType } from 'embla-carousel-react';
+import { EmblaOptionsType } from 'embla-carousel';
 import Fade from 'embla-carousel-fade';
+import './slider.css';
+
+const videos = [
+  { src: "/viedeos/viedeo1 (1).mp4", topic: "Explore Sri Lanka's Ancient Wonders" },
+  { src: "/viedeos/viedeo1 (2).mp4", topic: "Discover Pristine Beaches" },
+  { src: "/viedeos/viedeo1 (3).mp4", topic: "Experience Rich Cultural Heritage" },
+  { src: "/viedeos/viedeo1 (4).mp4", topic: "Adventure in Lush Landscapes" },
+  { src: "/viedeos/viedeo1 (6).mp4", topic: "Taste Exotic Culinary Delights" },
+  { src: "/viedeos/viedeo1 (7).mp4", topic: "Encounter Diverse Wildlife" },
+];
+
+const options: EmblaOptionsType = { loop: true };
 
 export default function Slider() {
-    const [emblaRef] = useEmblaCarousel({ loop: true }, [Fade()] );
+  const [emblaRef, emblaApi] = useEmblaCarousel(options, [Fade()]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-    return (
-        <div className="embla" ref={emblaRef}>
-            <div className="embla__container">
-                {/* <div className="embla__slide"> <Image src={slider01} width={500} height={200} alt="First slide"></Image></div> */}
-                {/* <div className="embla__slide"><Image src={slider01} width={500} height={200} alt="First slide"></Image></div> */}
-                {/* <div className="embla__slide"><Image src={slider01} width={500} height={200} alt="First slide"></Image></div> */}
+  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
 
-                <div className="embla__slide">
-                    <video autoPlay loop muted width="100%">
-                        <source src="/viedeos/viedeo1 (1).mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-                <div className="embla__slide">
-                    <video autoPlay loop muted width="100%">
-                        <source src="/viedeos/viedeo1 (2).mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-                <div className="embla__slide">
-                    <video autoPlay loop muted width="100%">
-                        <source src="/viedeos/viedeo1 (3).mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-                <div className="embla__slide">
-                    <video autoPlay loop muted width="100%">
-                        <source src="/viedeos/viedeo1 (4).mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
+  const onSelect = useCallback((emblaApi: UseEmblaCarouselType[1]) => {
+    if (!emblaApi) return;
+    setCurrentIndex(emblaApi.selectedScrollSnap());
+  }, []);
 
-                <div className="embla__slide">
-                    <video autoPlay loop muted width="100%">
-                        <source src="/viedeos/viedeo1 (6).mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-                <div className="embla__slide">
-                    <video autoPlay loop muted width="100%">
-                        <source src="/viedeos/viedeo1 (7).mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    onSelect(emblaApi);
+    emblaApi.on('select', () => onSelect(emblaApi));
+    emblaApi.on('reInit', () => onSelect(emblaApi));
+  }, [emblaApi, onSelect]);
+
+  return (
+    <div className="embla">
+      <div className="embla__viewport" ref={emblaRef}>
+        <div className="embla__container">
+          {videos.map((video, index) => (
+            <div className="embla__slide" key={index}>
+              <video autoPlay loop muted width="100%">
+                <source src={video.src} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
             </div>
+          ))}
         </div>
-    );
+      </div>
+      <button className="embla__prev" onClick={scrollPrev}>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+        </svg>
+      </button>
+      <button className="embla__next" onClick={scrollNext}>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+        </svg>
+      </button>
+      <div className="embla__topic">
+        <h2>{videos[currentIndex].topic}</h2>
+      </div>
+    </div>
+  );
 }
