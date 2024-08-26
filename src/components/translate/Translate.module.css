@@ -1,0 +1,10 @@
+.translate {
+  color: white;
+}
+
+@media (min-width: 300px) and (max-width: 425px) {
+  .translate {
+    color: white;
+    font-size: small;
+  }
+}
