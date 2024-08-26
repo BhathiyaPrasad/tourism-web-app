@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import product from '../../../public/assets/sigiriya.jpg';
 
-const HomePackages: React.FC = () => (
+const Gallery: React.FC = () => (
   <>
     <section className="text-gray-600 body-font bg-white">
       <div className="container px-5 py-24 mx-auto">
@@ -45,4 +45,4 @@ const HomePackages: React.FC = () => (
   </>
 );
 
-export default HomePackages;
+export default Gallery;
