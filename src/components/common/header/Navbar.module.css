@@ -11,7 +11,7 @@
 
 /* Navbar container styling */
 .navbarCustom {
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(58, 58, 58, 0.8) 50%, rgba(0, 0, 0, 0.5) 100%);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.9) 0%, rgba(58, 58, 58, 0.8) 50%, rgba(0, 0, 0, 0.9) 100%);
   height: 64px;
   padding: 0 16px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
