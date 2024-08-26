@@ -37,7 +37,7 @@ const Navbar = () => {
                         </ul>
                     </div>
                     <Link href='' className={`${styles.logoLink}`}>
-                        <Image src={Logo} alt='Jagath Travels Logo' width={120} height={62} />
+                        <Image className={styles.logo} src={Logo} alt='Jagath Travels Logo' />
                         <span className="ml-2"></span>
                     </Link>
                 </div>

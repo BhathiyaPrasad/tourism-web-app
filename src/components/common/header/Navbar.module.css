@@ -1,5 +1,12 @@
 /* Navbar.module.css */
 
+.logo {
+  width:120px ;
+  height:62px;
+
+}
+
+
 .navbarCustom {
     background: rgba(0, 0, 0, 0.5);
     height: 64px;
@@ -40,3 +47,15 @@
     font-size: 24px;
   }
   
+  @media (min-width:300px) and (max-width:425px) {
+ 
+  .logo{
+    width: 70px;
+    height: 60px;
+    margin-left:50px;
+  }
+
+  
+
+
+  }
