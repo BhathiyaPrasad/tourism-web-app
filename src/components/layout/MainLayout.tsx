@@ -9,8 +9,7 @@ const MainLayout: React.FC = () => {
         <div data-theme="light">
             <Navbar />
             <Slider />
-           
-           </div>
+        </div>
     );
 };
 
