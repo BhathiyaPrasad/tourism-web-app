@@ -14,7 +14,8 @@ const HomeCategoryButtons = () => {
       gap={{ base: 3, md: 4, lg: 6 }}
       justifyContent="center"
       alignItems="center"
-      p={{ base: 2, md: 4 }}
+      p={{ base: 8, md: 8,lg: 8 }}
+      m={{base:1,md: 1,lg: 1}}
       className="max-w-7xl mx-auto"
     >
       {/* Adventure Tours Button */}

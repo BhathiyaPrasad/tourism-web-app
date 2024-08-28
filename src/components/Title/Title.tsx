@@ -2,7 +2,11 @@ import React from "react";
 import { Heading } from '@chakra-ui/react'
 import styles from './title.module.css'
 
-const Title = ({title}) => {
+interface TitleProps {
+    title?: string;
+}
+
+const Title: React.FC<TitleProps> = ({title}) => {
 
 return(
 
