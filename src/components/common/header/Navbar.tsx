@@ -29,11 +29,11 @@ const Navbar = () => {
                         <ul
                             tabIndex={0}
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            <li><Link href='/'>Home</Link></li>
-                            <li><Link href='/packages'>Packages</Link></li>
-                            <li><Link href='/places'>Places</Link></li>
-                            <li><Link href='/about'>About Us</Link></li>
-                            <li><Link href='/contact'>Contact</Link></li>
+                            <li><Link href='/'>HOME</Link></li>
+                            <li><Link href='/packages'>PACKAGES</Link></li>
+                            <li><Link href='/places'>PLACES</Link></li>
+                            <li><Link href='/about'>ABOUT US</Link></li>
+                            <li><Link href='/contact'>CONTACT</Link></li>
                         </ul>
                     </div>
                     <Link href='/' className={`${styles.logoLink}`}>
@@ -43,11 +43,11 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
-                        <li className={styles.menuItem}><Link href='/'>Home</Link></li>
-                        <li className={styles.menuItem}><Link href='/packages'>Packages</Link></li>
-                        <li className={styles.menuItem}><Link href='/places'>Places</Link></li>
-                        <li className={styles.menuItem}><Link href='/about'>About Us</Link></li>
-                        <li className={styles.menuItem}><Link href='/contact'>Contact</Link></li>
+                        <li className={styles.menuItem}><Link href='/'>HOME</Link></li>
+                        <li className={styles.menuItem}><Link href='/packages'>PACKAGES</Link></li>
+                        <li className={styles.menuItem}><Link href='/places'>PLACES</Link></li>
+                        <li className={styles.menuItem}><Link href='/about'>ABOUT US</Link></li>
+                        <li className={styles.menuItem}><Link href='/contact'>CONTACT</Link></li>
                     </ul>
                 </div>
                 <div className="navbar-end">
