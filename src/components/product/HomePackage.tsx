@@ -4,8 +4,8 @@ import product from '../../../public/assets/sigiriya.jpg';
 
 const HomePackage = () => {
   return (
-    <section className="text-gray-600 body-font bg-white">
-      <div className="container px-5 py-24 mx-auto">
+    <section className="text-gray-600 body-font bg-white ">
+      <div className="container px-5 py-24 mx-auto z-10">
         <div className="flex flex-wrap -m-4">
           {/* Card 1 */}
           <div className="p-4 md:w-1/3">
