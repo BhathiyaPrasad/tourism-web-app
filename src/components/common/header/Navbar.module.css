@@ -33,11 +33,12 @@
   margin-right: 20px;
   color: white;
   font-size: 1rem;
+  font-weight: 550;
   transition: color 0.3s; /* Smooth color transition */
 }
 
 .menuItem:hover {
-  color: #5e5da7; /* Lighter color on hover */
+  color: #817ffc; /* Lighter color on hover */
 }
 
 /* Dropdown button styling */
