@@ -45,8 +45,8 @@
   @media (max-width: 480px) {
     .title {
       font-size: clamp(1rem, 6vw, 1.3rem);
-      padding: 0.4rem 0.25rem;
-      margin-bottom: 0.5rem;
+      padding-top: 0.4rem;
+      margin-bottom: 0.2rem;
       margin-top: 1rem;
       letter-spacing: 0.03em;
     }
