@@ -1,6 +1,8 @@
 .embla {
   position: relative;
   overflow: hidden;
+  height: auto;
+  
 }
 
 .embla__viewport {
@@ -9,11 +11,13 @@
 
 .embla__container {
   display: flex;
+  height: ;
 }
 
 .embla__slide {
   flex: 0 0 100%;
   min-width: 0;
+  
 }
 
 .embla__prev,
@@ -61,23 +65,30 @@
 
 .embla__topic h2 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 3rem;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 
 
 
 @media (min-width: 300px) and (max-width: 425px) {
+  .embla {
+    position: relative;
+    overflow: hidden;
+    height: 250px;
+    
+  }
   .embla__prev,
   .embla__next {
-    top: 55%;
+    top: 50%;
     transform: translateY(-50%); /* Center vertically */
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
   }
   .embla__topic {
     position: absolute;
-    top: 55%;
+    top: 45%;
     left: 0;
     right: 0;
     text-align: center;
@@ -88,7 +99,8 @@
   }
   .embla__topic h2 {
     margin: 0;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
   }
+  
   
 }
