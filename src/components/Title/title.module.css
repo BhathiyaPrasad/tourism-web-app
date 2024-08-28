@@ -1,0 +1,14 @@
+.title {
+  font-size: 2rem;
+  align-items: center;
+  text-align: center;
+  padding-top: 10px;
+}
+
+@media (min-width: 300px) and (max-width: 425px) {
+  .title {
+    padding-top: 10px;
+    font-size: 1.1rem;
+    padding-bottom: 10px;
+  }
+}
