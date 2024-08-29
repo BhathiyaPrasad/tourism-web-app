@@ -1,8 +1,23 @@
+'use client'
 import React from "react";
 import Image from "next/image";
 import product from '../../../public/assets/sigiriya.jpg';
+import { useState , useEffect } from "react";
+import { db } from "@/lib/firebase";
+import LoadingCard from "../loading/LoadingCard";
 
-const Gallery: React.FC = () => (
+
+
+
+const Gallery: React.FC = () => {
+const [loading ,  setLoading] = useState<boolean>(true);
+
+
+
+
+
+
+  return(
   <>
     <section className="text-gray-600 body-font bg-white z-10">
       <div className="container px-5 py-24 mx-auto">
@@ -42,7 +57,7 @@ const Gallery: React.FC = () => (
         </div>
       </div>
     </section>
-  </>
-);
+  </>)
 
+}
 export default Gallery;
