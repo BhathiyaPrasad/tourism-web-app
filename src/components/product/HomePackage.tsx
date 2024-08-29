@@ -28,16 +28,16 @@ const HomePackage = () => {
         setPackages(data); // Store fetched data in state
       } catch (error) {
         console.error("Error fetching data from Firestore:", error);
-      }finally{
+      } finally {
         setLoading(false)
       }
     };
 
     fetchData(); // Call fetchData when the component mounts
   }, []);
-if (loading) {
-  return <LoadingCard/>
-}
+  if (loading) {
+    return <LoadingCard />
+  }
   return (
     <section className="text-gray-600 body-font bg-white">
       <div className="container px-5 py-22 mx-auto z-10">
@@ -82,8 +82,7 @@ if (loading) {
             </div>
           ))}
         </div>
-        
-      </div>
+  </div>
     </section>
   );
 };
