@@ -5,10 +5,24 @@ import product from '../../../public/assets/sigiriya.jpg';
 import { db } from "@/lib/firebase";
 import { getDocs, collection } from "firebase/firestore"; // Correct import for Firestore SDK
 
+
+type Package = {
+
+  id:string;
+  name:string;
+  category:string;
+  price:number;
+  description:string;
+
+}
+
+
+const OrganizationID = 'package'
+
 // Fetch data from Firestore
 const fetchData = async () => {
   try {
-    const querySnapshot = await getDocs(collection(db, "packages"));
+    const querySnapshot = await getDocs(collection(db, OrganizationID));
     const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     console.log(data);
   } catch (error) {
