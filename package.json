@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.13.0",
     "@react-google-maps/api": "^2.19.3",
     "embla-carousel-autoplay": "^8.2.0",
+    "embla-carousel-class-names": "^8.2.0",
     "embla-carousel-fade": "^8.2.0",
     "embla-carousel-react": "^8.2.0",
     "firebase": "^10.13.0",
