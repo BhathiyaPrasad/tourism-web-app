@@ -6,7 +6,7 @@ import Title from "@/components/Title/Title";
 
 const HomeCategoryButtons = () => {
   return (
-<>
+<div data-theme='light'>
   <Title title="Trending Packages" />
 
     <Grid
@@ -108,7 +108,7 @@ const HomeCategoryButtons = () => {
         </Button>
       </GridItem>
     </Grid>
-    </>
+    </div>
   );
 };
 
