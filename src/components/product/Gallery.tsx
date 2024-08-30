@@ -5,7 +5,7 @@ import product from '../../../public/assets/sigiriya.jpg';
 import { useState , useEffect } from "react";
 import { db } from "@/lib/firebase";
 import LoadingCard from "../loading/LoadingCard";
-
+import Title from "../Title/Title";
 
 
 
@@ -22,9 +22,7 @@ const [loading ,  setLoading] = useState<boolean>(true);
     <section className="text-gray-600 body-font bg-white z-10">
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-col text-center w-full mb-20">
-          <h1 className="sm:text-4xl text-3xl font-bold title-font mb-4 text-gray-900">
-            Master Cleanse Reliac Heirloom
-          </h1>
+        <Title title='Master Cleanse Reliac Heirloom' />
           <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500">
             Explore our curated selection of packages designed to rejuvenate and inspire.
           </p>
