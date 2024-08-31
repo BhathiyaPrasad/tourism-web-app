@@ -6,7 +6,7 @@ import Slider from "../common/slider/Slider";
 
 const MainLayout: React.FC = () => {
     return (
-        <div data-theme="light">
+        <div>
             <Navbar />
             <Slider />
         </div>

@@ -43,7 +43,7 @@ const SriLankaEventsCarousel: React.FC<PropType> = (props) => {
   ]
 
   return (
-    <div data-theme='light'>
+    <div>
     <div className="max-w-7xl mx-auto mt-10 w-full px-4">
       <div className="embla p-4 bg-gradient-to-r rounded-xl shadow-lg">
         <Title title='Upcoming Events In Sri Lanka' />

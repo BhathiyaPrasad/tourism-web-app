@@ -9,7 +9,7 @@ import EmblaCarousel from "@/components/Events/EmblaCarousel";
 
 export default function Home() {
   return (
-    <div>
+    <div data-theme='light'>
       <MainLayout />
       <HomeCategoryButtons />
       <HomePackage />
