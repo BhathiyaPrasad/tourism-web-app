@@ -40,7 +40,7 @@ const HomePackage = () => {
   }
   return (
     <section className="text-gray-600 body-font bg-white">
-      <div className="container px-5 py-22 mx-auto z-10">
+      <div className="container px-5 py-22 mb-8 mx-auto z-10">
         <div className="flex flex-wrap -m-4">
           {/* Dynamically render cards based on fetched data */}
           {packages.map((pkg) => (

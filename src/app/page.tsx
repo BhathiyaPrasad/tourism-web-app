@@ -6,13 +6,15 @@ import HomePackage from "@/components/product/HomePackage";
 import Gallery from "@/components/product/Gallery";
 import HomeCategoryButtons from "@/components/product/CategoryButtons/HomeCategoryButtons";
 import EmblaCarousel from "@/components/Events/EmblaCarousel";
+import Title from "@/components/Title/Title";
 
 export default function Home() {
   return (
-    <div>
+    <div data-theme='light'>
       <MainLayout />
       <HomeCategoryButtons />
       <HomePackage />
+      <Title title='Upcoming Events In Sri Lanka' />
       <EmblaCarousel />
       <Gallery />
       <Footer />
