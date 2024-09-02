@@ -8,6 +8,21 @@ import { FaCalendarAlt, FaMapMarkerAlt, FaClock } from 'react-icons/fa'
 import test from '../../../public/assets/sigiriya.jpg'
 import Title from '../../components/Title/Title'
 import LoadingEvent from './Loading'
+import { collection, getDocs } from 'firebase/firestore'
+import { db } from '@/lib/firebase'
+
+
+type Package = {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  description: string;
+};
+
+
+
+
 
 type PropType = {
   options?: EmblaOptionsType
@@ -20,6 +35,7 @@ const SriLankaEventsCarousel: React.FC<PropType> = (props) => {
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([])
   const autoplayRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
+  const [packages, setPackages] = useState<Package[]>([]);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return
@@ -36,6 +52,28 @@ const SriLankaEventsCarousel: React.FC<PropType> = (props) => {
   }, [emblaApi])
 
   useEffect(() => {
+ 
+    const fetchEventsData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'events'));
+        const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }as Package))
+        setPackages(data); // Store fetched data in state
+        console.log(packages)
+      } catch (error) {
+        console.error("Error fetching data from Firestore:", error);
+
+      } finally{
+        setLoading(false)
+      }
+
+
+
+ 
+
+    }
+ 
+
+
     if (!emblaApi) return
     onSelect()
     setScrollSnaps(emblaApi.scrollSnapList())
@@ -43,13 +81,14 @@ const SriLankaEventsCarousel: React.FC<PropType> = (props) => {
     emblaApi.on('reInit', onSelect)
 
     autoplayRef.current = setInterval(autoplay, 5000) // Autoplay every 3 seconds
-    
+    fetchEventsData();
     return () => {
       if (autoplayRef.current) clearInterval(autoplayRef.current)
-    }
-   
+        
+    };
 
-  }, [emblaApi, onSelect, autoplay])
+  
+  }, [emblaApi, onSelect, autoplay]);
 
 
   const events = [
@@ -59,9 +98,9 @@ const SriLankaEventsCarousel: React.FC<PropType> = (props) => {
     { title: "Ramayana", date: "January 24-28, 2025", location: "Jaffna", time: "Various times" }
   ]
 
-// if (loading) {
-//   return <LoadingEvent />
-// }
+  // if (loading) {
+  //   return <LoadingEvent />
+  // }
 
 
 
@@ -69,7 +108,7 @@ const SriLankaEventsCarousel: React.FC<PropType> = (props) => {
     <div>
       <div className="max-w-7xl mx-auto mt-10 w-full px-4">
         <div className="embla p-4 bg-gradient-to-r rounded-xl shadow-lg">
-          
+
           <div className="relative">
             <div className="embla__viewport overflow-hidden" ref={emblaRef}>
               <div className="embla__container flex">
@@ -110,9 +149,8 @@ const SriLankaEventsCarousel: React.FC<PropType> = (props) => {
             {scrollSnaps.map((_, index) => (
               <button
                 key={index}
-                className={`w-2 h-2 rounded-full mx-1 transition-all duration-300 ${
-                  index === selectedIndex ? 'bg-blue-500 scale-125' : 'bg-gray-300'
-                }`}
+                className={`w-2 h-2 rounded-full mx-1 transition-all duration-300 ${index === selectedIndex ? 'bg-blue-500 scale-125' : 'bg-gray-300'
+                  }`}
                 onClick={() => emblaApi?.scrollTo(index)}
               />
             ))}

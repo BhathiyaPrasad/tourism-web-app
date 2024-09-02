@@ -18,7 +18,7 @@ const Navbar = () => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       const scrolls = window.scrollY
-      console.log(scrolls)
+     
       // Check if the user has scrolled down past the last scroll position
        if (scrolls < 300) {
         setScroll(false);
