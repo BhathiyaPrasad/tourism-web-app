@@ -2,6 +2,7 @@
 import React from "react";
 import { useMediaQuery, Grid, GridItem, Button, Icon, Box, chakra, Menu, MenuButton, MenuList, MenuItem, ButtonProps } from "@chakra-ui/react";
 import { FaMountain, FaLandmark, FaPaw, FaCity, FaWineGlass, FaUmbrellaBeach } from "react-icons/fa";
+import { FiChevronDown } from "react-icons/fi";
 import Title from "@/components/Title/Title";
 
 const HomeCategoryButtons = () => {
@@ -125,10 +126,10 @@ const HomeCategoryButtons = () => {
         <Menu>
           <MenuButton
             as={Button}
-            rightIcon={<Icon as={FaMountain} />}
+            rightIcon={<Icon as={FiChevronDown} />}
             w="full"  // Make the button take the full width
-            size="lg"  // Larger button size for better touch experience
-            colorScheme="teal"  // Consistent color scheme
+            size="md"  // Larger button size for better touch experience
+            colorScheme="blackAlpha 50"  // Consistent color scheme
             variant="outline"  // Outline style for a modern look
           >
             Select a Tour Category
