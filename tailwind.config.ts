@@ -1,3 +1,4 @@
+import { px } from "framer-motion";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -16,6 +17,7 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
+   
   },
   plugins: [
     require('daisyui'),

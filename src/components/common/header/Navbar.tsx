@@ -5,21 +5,32 @@ import Translate from '../../translate/Translate';
 import Image from "next/image";
 import Logo from '../../../../public/assets/jagathlogo3.png';
 import styles from './Navbar.module.css';
+import { px } from "framer-motion";
 
 const Navbar = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [scroll , setScroll] = useState<boolean>(true)
+  const [scroll, setScroll] = useState(true)
+
+
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-
+      const scrolls = window.scrollY
+      console.log(scrolls)
       // Check if the user has scrolled down past the last scroll position
-      if (currentScrollY > lastScrollY) {
+       if (scrolls < 300) {
+        setScroll(false);
+      }
+
+      else if (currentScrollY > lastScrollY) {
         setIsVisible(false);  // Hide the navbar
-      } else {
-        setIsVisible(true);   // Show the navbar
+      }
+      else {
+        setIsVisible(true)
+        setScroll(true);   // Show the navbar
+
       }
 
       // Update the last scroll position to the current scroll position
@@ -37,9 +48,11 @@ const Navbar = () => {
   
   }, [lastScrollY]);
 
+ 
+
 
   return (
-    <div className={`navbar fixed top-0 left-0 w-full ${styles.navbarCustom} ${isVisible ? 'z-10' : '-z-10'}`}>
+    <div className={`navbar fixed top-0 left-0 w-full ${styles.navbarCustom} ${isVisible ? 'z-10' : '-z-10'} ${(scroll && isVisible) ?  'bg-gray-800' :''}`}>
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className={`btn btn-ghost lg:hidden ${styles.dropdownButton}`}>
