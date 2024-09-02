@@ -9,6 +9,7 @@ import styles from './Navbar.module.css';
 const Navbar = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [scroll , setScroll] = useState<boolean>(true)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,7 +33,10 @@ const Navbar = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
+
+  
   }, [lastScrollY]);
+
 
   return (
     <div className={`navbar fixed top-0 left-0 w-full ${styles.navbarCustom} ${isVisible ? 'z-10' : '-z-10'}`}>
