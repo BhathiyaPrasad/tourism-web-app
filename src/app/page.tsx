@@ -16,6 +16,7 @@ export default function Home() {
       <HomePackage />
       <Title title='Upcoming Events In Sri Lanka' />
       <EmblaCarousel />
+      <Title title='Gallery' />
       <Gallery />
       <Footer />
     </div>
