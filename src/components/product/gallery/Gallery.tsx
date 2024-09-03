@@ -4,7 +4,7 @@ import Image from "next/image";
 import product from '../../../public/assets/sigiriya.jpg';
 import { useState, useEffect } from "react";
 import { db } from "@/lib/firebase";
-import LoadingGallery from "../loading/LoadingGallery";
+import LoadingGallery from "../../loading/LoadingGallery";
 import { getDocs, collection } from "firebase/firestore";
 
 type gData = {
