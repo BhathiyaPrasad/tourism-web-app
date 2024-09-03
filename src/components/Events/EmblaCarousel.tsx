@@ -105,7 +105,7 @@ if (loading) {
 
 return (
   <div>
-    <div className="max-w-7xl mx-auto mt-10 w-full px-4">
+    <div className=" mx-auto mt-10 px-4" style={{ width: '98rem' }}>
       <div className="embla p-4 bg-gradient-to-r rounded-xl shadow-lg">
 
         <div className="relative">
