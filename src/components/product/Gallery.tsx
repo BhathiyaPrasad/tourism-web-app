@@ -4,25 +4,40 @@ import Image from "next/image";
 import product from '../../../public/assets/sigiriya.jpg';
 import { useState , useEffect } from "react";
 import { db } from "@/lib/firebase";
-import LoadingCard from "../loading/LoadingCard";
-import Title from "../Title/Title";
+import LoadingGallery from "../loading/LoadingGallery";
+import { getDocs ,  collection } from "firebase/firestore";
 
 
 
 const Gallery: React.FC = () => {
 const [loading ,  setLoading] = useState<boolean>(true);
+const [gData ,  setGData] = useState([]);
 
-
-
-
-
+useEffect(() => {
+  const fetchGalleryData = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db,'gallery'));
+      const galleryData = querySnapshot.docs.map((doc) => ({id: doc.id, ...doc.data()}));
+      setGData(galleryData);
+          
+    } catch(error) {
+       console.error("Error In Fetching Data:", error);
+    }finally{
+      setLoading(false)
+    }
+  };
+  fetchGalleryData()
+}, []);
+if (loading){
+  return <LoadingGallery />
+}
 
   return(
   <>
     <section className="text-gray-600 body-font bg-white z-10">
       <div className="container px-2 py-8 mx-auto">
         <div className="flex flex-col text-center w-full mb-20">
-        <Title title='Gallery' />
+      
           <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500">
             Explore our curated selection of packages designed to rejuvenate and inspire.
           </p>
