@@ -9,6 +9,7 @@ import test from '../../../public/assets/sigiriya.jpg'
 import LoadingEvent from './Loading'
 import { collection, getDocs } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
+import style from './embla.module.css'
 
 type PropType = {
   options?: EmblaOptionsType
@@ -105,7 +106,7 @@ if (loading) {
 
 return (
   <div>
-    <div className=" mx-auto mt-10 px-4" style={{ width: '98rem' }}>
+    <div className={style.container}>
       <div className="embla p-4 bg-gradient-to-r rounded-xl shadow-lg">
 
         <div className="relative">
