@@ -7,12 +7,12 @@ import { db } from "@/lib/firebase";
 import LoadingGallery from "../loading/LoadingGallery";
 import { getDocs, collection } from "firebase/firestore";
 
-type gData =  {
-  id:string;
-location: string;
-place: string;
-name: string;
-description: string
+type gData = {
+  id: string;
+  location: string;
+  place: string;
+  name: string;
+  description: string
 
 }
 
@@ -45,7 +45,7 @@ const Gallery: React.FC = () => {
     <>
       <section className="text-gray-600 body-font bg-white z-10">
         <div className="container px-2 py-8 mx-auto">
-          <div className="flex flex-col text-center w-full mb-20">
+          <div className="flex flex-col text-center w-full mb-10">
 
             <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500">
               Explore our curated selection of packages designed to rejuvenate and inspire.
@@ -63,10 +63,10 @@ const Gallery: React.FC = () => {
                   />
                   <div className="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100 transition-opacity duration-300 ease-in-out">
                     <h2 className="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">
-                    {gallery.location}
+                      {gallery.location}
                     </h2>
                     <h1 className="title-font text-lg font-semibold text-gray-900 mb-3">
-                    {gallery.place}
+                      {gallery.place}
                     </h1>
                     <p className="leading-relaxed text-gray-600">
                       {gallery.description}

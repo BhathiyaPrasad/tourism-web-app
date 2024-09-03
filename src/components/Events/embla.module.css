@@ -1,6 +1,6 @@
 .container {
   width: 98rem;
-
+   margin-bottom: 2rem;
   margin-left: auto; /* Equivalent to mx-auto in Tailwind */
   margin-right: auto; /* Equivalent to mx-auto in Tailwind */
   margin-top: 2.5rem; /* Equivalent to mt-10 in Tailwind */
