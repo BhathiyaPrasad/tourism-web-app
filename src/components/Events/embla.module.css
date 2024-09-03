@@ -1,17 +1,33 @@
 .container {
-    width: 98rem;
-    
-    margin-left: auto; /* Equivalent to mx-auto in Tailwind */
-    margin-right: auto; /* Equivalent to mx-auto in Tailwind */
-    margin-top: 2.5rem; /* Equivalent to mt-10 in Tailwind */
-    padding-left: 1rem; /* Equivalent to px-4 in Tailwind */
-    padding-right: 1rem; /* Equivalent to px-4 in Tailwind */
-  }
+  width: 98rem;
 
-
-@media(min-width:300px) and (max-width:425px) {
-.container{
-width: 25rem;
+  margin-left: auto; /* Equivalent to mx-auto in Tailwind */
+  margin-right: auto; /* Equivalent to mx-auto in Tailwind */
+  margin-top: 2.5rem; /* Equivalent to mt-10 in Tailwind */
+  padding-left: 1rem; /* Equivalent to px-4 in Tailwind */
+  padding-right: 1rem; /* Equivalent to px-4 in Tailwind */
 }
 
+@media (min-width: 426px) and (max-width: 768px) {
+  .container {
+    width: 40rem;
+  }
+}
+
+@media (min-width: 376px) and (max-width: 425px) {
+  .container {
+    width: 25rem;
+  }
+}
+
+@media (min-width: 321px) and (max-width: 375px) {
+  .container {
+    width: 20rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .container {
+    width: 20rem;
+  }
 }
