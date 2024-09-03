@@ -76,3 +76,17 @@
     font-size: small;
   }
 }
+
+
+
+
+.navbarCustom {
+  transition: all 0.3s ease-in-out;
+ 
+}
+
+.navbarCustom.scrolled {
+  background-color: rgba(31, 41, 55, 0.95);  /* Dark background with slight transparency */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
