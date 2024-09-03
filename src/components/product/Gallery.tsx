@@ -13,6 +13,9 @@ const Gallery: React.FC = () => {
 const [loading ,  setLoading] = useState<boolean>(true);
 const [gData ,  setGData] = useState([]);
 
+
+// this useEffect function realtimely  retrieves the data from the databse 
+
 useEffect(() => {
   const fetchGalleryData = async () => {
     try {
