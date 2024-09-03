@@ -25,7 +25,7 @@ const LoadingEvent = () => {
                     </div>
                 </div>
             </section>
-       
+        
     )
 
 }
