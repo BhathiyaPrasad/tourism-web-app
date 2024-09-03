@@ -1,10 +1,10 @@
 'use client'
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import productImage from '../../../public/assets/sigiriya.jpg';
+import productImage from '../../../public/assets/sigiriya.jpg'
 import { db } from "@/lib/firebase";
 import { getDocs, collection } from "firebase/firestore";
-import LoadingCard from "../loading/LoadingCard";
+import LoadingCard from "./LoadingCard";
 
 type Package = {
   id: string;
