@@ -8,7 +8,7 @@ function packages() {
     <div>
       <Navbar />
      <MainLayout />
-     <TourTabs />
+    
     </div>
   )
 }
