@@ -13,7 +13,7 @@ export default function Home() {
     <div data-theme='light'>
       <MainLayout />
       <HomeCategoryButtons />
-      <HomePackage limits='6' />
+      <HomePackage limits={6} />
       <Title title='Upcoming Events In Sri Lanka' />
       <EmblaCarousel />
       <Title title='Gallery' />
