@@ -65,10 +65,10 @@ const HomePackage = () => {
                         <path d="M12 5l7 7-7 7"></path>
                       </svg>
                     </a>
-                    <div className="text-lg font-bold text-gray-800">{pkg.price} / person</div>
-                    <div className="ml-auto">
-                      <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">Book Now</button>
-                    </div>
+                    <div className="text-lg font-bold text-gray-800">{pkg.price}</div>
+                    <div className="ml-auto md:text-sm lg:text-base xl:text-lg">
+  <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 mt-2 rounded md:w-full lg:w-full xl:w-48">Book Now</button>
+</div>
                   </div>
                 </div>
               </div>
