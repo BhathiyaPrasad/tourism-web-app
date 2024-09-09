@@ -69,14 +69,24 @@
   .logo {
     width: 70px;
     height: 60px;
-    margin-left: 85px;
+    margin-left: 50px;
     margin-bottom: 10px;
   }
   .navbar-end {
     font-size: small;
   }
 }
-
+@media (min-width: 425px) and (max-width: 868px) {
+  .logo {
+    width: 70px;
+    height: 60px;
+    margin-left: 80px;
+    margin-bottom: 10px;
+  }
+  .navbar-end {
+    font-size: small;
+  }
+}
 
 
 .logo {

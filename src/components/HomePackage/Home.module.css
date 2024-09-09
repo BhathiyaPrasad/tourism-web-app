@@ -1,9 +1,10 @@
 
 
 @media(min-width:320px) and  (max-width:425px) {P
-.buttons {
-   color: black;
-   
+
+.maindiv {
+text-align: center;
+align-items: center;
 }
 
 }
