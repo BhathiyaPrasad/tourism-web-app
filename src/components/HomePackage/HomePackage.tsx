@@ -61,7 +61,7 @@ const HomePackage = ({ limits }: { limits: number }) => {
                   width={500}
                   height={300}
                 />
-                <div className={Styles.maindiv}>
+                <div className="p-4">
                   <h2 className="tracking-widest text-xs title-font font-medium text-gray-500 mb-1">{pkg.category}</h2>
                   <h1 className="title-font text-xl font-semibold text-gray-800 mb-3">{pkg.name}</h1>
                   <p className="leading-relaxed text-gray-700 mb-3">{pkg.description}</p>

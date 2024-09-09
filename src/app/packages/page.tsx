@@ -11,7 +11,7 @@ function packages() {
       <MainLayout />
     </div>
       <div className="mt-10">
-        <HomePackage limits='100' />
+        <HomePackage limits={100} />
       </div>
     </div>
   )
