@@ -3,27 +3,35 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import productImage from '../../../public/assets/sigiriya.jpg'
 import { db } from "@/lib/firebase";
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, query , where , limit } from "firebase/firestore";
 import LoadingCard from "./LoadingCard";
-
+import Styles from './Home.module.css'
 type Package = {
   id: string;
   name: string;
   category: string;
   price: number;
   description: string;
+  
 };
+
 
 const OrganizationID = 'packages';
 
-const HomePackage = () => {
+const HomePackage = ({limits}) => {
   const [packages, setPackages] = useState<Package[]>([]); // State to store fetched packages
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, OrganizationID));
+        const itemsRef = collection(db, OrganizationID)
+        const itemsQuery = query (
+          itemsRef,
+          where("hide" , "==" , false),
+          limit(limits)
+        );
+        const querySnapshot = await getDocs(itemsQuery);
         const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Package));
         setPackages(data); // Store fetched data in state
       } catch (error) {
@@ -58,13 +66,9 @@ const HomePackage = () => {
                   <h1 className="title-font text-xl font-semibold text-gray-800 mb-3">{pkg.name}</h1>
                   <p className="leading-relaxed text-gray-700 mb-3">{pkg.description}</p>
                   <div className="flex items-center flex-wrap">
-                    <a href="#" className="text-indigo-600 inline-flex items-center md:mb-2 lg:mb-0 font-medium">
-                      Learn More
-                      <svg className="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M5 12h14"></path>
-                        <path d="M12 5l7 7-7 7"></path>
-                      </svg>
-                    </a>
+                  <div className="ml-auto md:text-sm lg:text-base xl:text-lg">
+                    <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 mt-2 rounded md:w-full lg:w-full xl:w-48">View Details</button>
+                    </div>
                     <div className="text-lg font-bold text-gray-800">{pkg.price}</div>
                     <div className="ml-auto md:text-sm lg:text-base xl:text-lg">
   <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 mt-2 rounded md:w-full lg:w-full xl:w-48">Book Now</button>
