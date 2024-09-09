@@ -1,0 +1,96 @@
+.tour-package-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    width: 300px; /* added a fixed width for better layout */
+    transition: all 0.3s ease-in-out; /* added a transition effect */
+  }
+  
+  .tour-package-card:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px); /* added a hover effect */
+  }
+  
+  .tour-package-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+    filter: brightness(0.8); /* added a filter to make the image slightly darker */
+  }
+  
+  .tour-package-card h3 {
+    font-size: 18px;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333; /* changed the color to a darker shade */
+  }
+  
+  .tour-package-card p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .tour-package-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .tour-package-card li {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+    padding-left: 20px; /* added some padding to make the list items more readable */
+    position: relative; /* added a relative position to allow for a custom bullet point */
+  }
+  
+  .tour-package-card li::before {
+    content: "\2022"; /* added a custom bullet point */
+    font-size: 18px;
+    color: #4CAF50; /* changed the color to match the "Book Now" button */
+    position: absolute;
+    left: 0;
+    top: 5px;
+  }
+  
+  .tour-package-card strong {
+    font-weight: bold;
+    color: #333; /* changed the color to a darker shade */
+  }
+  
+  .tour-package-card button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px; /* added a border radius to make the button more rounded */
+    transition: all 0.3s ease-in-out; /* added a transition effect */
+  }
+  
+  .tour-package-card button:hover {
+    background-color: #3e8e41;
+    transform: translateY(-2px); /* added a hover effect */
+  }
+  
+  .tour-package-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 40px; /* added some margin to make the layout more breathable */
+  }
+  
+  @media (max-width: 768px) {
+    .tour-package-card {
+      width: 100%; /* made the card full-width on smaller screens */
+      margin: 10px; /* reduced the margin on smaller screens */
+    }
+  }
