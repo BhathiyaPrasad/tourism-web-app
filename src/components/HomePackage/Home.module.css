@@ -80,7 +80,7 @@
     transition: background-color 0.3s, transform 0.3s;
 }
 .buttonView:hover {
-    background-color: rgba(249, 115, 22, 0.8);
+    background-color: rgba(102, 15, 201, 0.8);
     transform: translateY(-2px);
 }
   .price {
