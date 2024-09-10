@@ -1,0 +1,50 @@
+/* TourTabs.module.css */
+
+.tabContainer {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .tabButtons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  
+  .tabButton {
+    padding: 10px 20px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .tabButton:hover {
+    background-color: #ddd;
+  }
+  
+  .active {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .tabContent {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .tabContent h2 {
+    margin-bottom: 10px;
+  }
+  
+  .tabContent p {
+    margin-bottom: 20px;
+  }
+  
+ 
