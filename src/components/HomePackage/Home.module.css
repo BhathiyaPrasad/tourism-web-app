@@ -1,10 +1,97 @@
+/* HomePackage.module.css */
 
-
-@media(min-width:320px) and  (max-width:425px) {P
-
-.maindiv {
-text-align: center;
-align-items: center;
+.container {
+    padding: 5px 22px;
+    margin-bottom: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 10;
+  }
+  
+  .card {
+    border: 2px solid rgba(229, 231, 235, 0.6);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  
+  .card:hover {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+  }
+  
+  .image {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  .title {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: rgba(107, 114, 128, 1);
+    margin-bottom: 0.25rem;
+  }
+  
+  .heading {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: rgba(31, 41, 55, 1);
+    margin-bottom: 0.75rem;
+  }
+  
+  .description {
+    color: rgba(75, 85, 99, 1);
+    margin-bottom: 0.75rem;
+  }
+  
+  .button {
+    background-color: rgba(249, 115, 22, 1);
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    margin-top: 0.5rem;
+    border-radius: 0.25rem;
+    text-align: center;
+    display: inline-block;
+    width: 100%; /* Full width for mobile */
+    max-width: 200px; /* Max width for mobile */
+    transition: background-color 0.3s, transform 0.3s;
 }
-
+.button:hover {
+    background-color: rgba(249, 115, 22, 0.8);
+    transform: translateY(-2px);
+}
+.buttonView {
+    background-color: rgb(41, 76, 192);
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    margin-top: 0.5rem;
+    /* margin-right:10rem; */
+    border-radius: 0.25rem;
+    text-align: center;
+    display: inline-block;
+    width: 100%; /* Full width for mobile */
+    max-width: 200px; /* Max width for mobile */
+    transition: background-color 0.3s, transform 0.3s;
+}
+.buttonView:hover {
+    background-color: rgba(249, 115, 22, 0.8);
+    transform: translateY(-2px);
+}
+  .price {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: rgba(31, 41, 55, 1);
+  }
+  
+.flex {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
