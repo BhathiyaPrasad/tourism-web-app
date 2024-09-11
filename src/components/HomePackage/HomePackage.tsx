@@ -5,7 +5,11 @@ import productImage from '../../../public/assets/sigiriya.jpg'
 import { db } from "@/lib/firebase";
 import { getDocs, collection, query, where, limit } from "firebase/firestore";
 import LoadingCard from "./LoadingCard";
-import Styles from './Home.module.css'; // Import the CSS module
+import Styles from './Home.module.css';
+import {useRouter} from "next/navigation";
+
+
+
 
 type Package = {
   id: string;
@@ -15,11 +19,16 @@ type Package = {
   description: string;
 };
 
+
+
+
 const OrganizationID = 'packages';
+
 
 const HomePackage = ({ limits }: { limits: number }) => {
   const [packages, setPackages] = useState<Package[]>([]); // State to store fetched packages
   const [loading, setLoading] = useState<boolean>(true);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,6 +55,13 @@ const HomePackage = ({ limits }: { limits: number }) => {
   if (loading) {
     return <LoadingCard />;
   }
+  const handleClick = () => {
+
+    router.push('packages/data.id') 
+    
+
+
+  }
 
   return (
     <section className="text-gray-600 body-font bg-white">
@@ -69,7 +85,7 @@ const HomePackage = ({ limits }: { limits: number }) => {
                   <div className={Styles.flex}>
                     <div className={Styles.price}>{pkg.price}</div>
                     <div className="ml-auto md:text-sm lg:text-base xl:text-lg text-center">
-                    <button className={Styles.buttonView}>View Details</button>
+                      <button className={Styles.buttonView} onClick={handleClick}>View Details</button>
                       <button className={Styles.button}>Book Now</button>
                     </div>
                   </div>
