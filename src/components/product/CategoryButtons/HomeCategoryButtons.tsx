@@ -12,17 +12,17 @@ const HomeCategoryButtons = () => {
       <Title title="Trending Packages" />
 
       <Grid
-  templateColumns={{
-    base: '1fr', // mobile view: 1 column
-    md: 'repeat(6, 1fr)', // desktop view: 5 columns
-  }}
-  gap={{ base: 3, md: 4, lg: 6 }}
-  justifyContent="center"
-  alignItems="center"
-  p={{ base: 8, md: 8, lg: 8 }}
-  m={{ base: 1, md: 1, lg: 1 }}
-  className="max-w-7xl mx-auto"
->
+        templateColumns={{
+          base: '1fr', // mobile view: 1 column
+          md: 'repeat(6, 1fr)', // desktop view: 5 columns
+        }}
+        gap={{ base: 3, md: 4, lg: 6 }}
+        justifyContent="center"
+        alignItems="center"
+        p={{ base: 8, md: 8, lg: 8 }}
+        m={{ base: 1, md: 1, lg: 1 }}
+        className="max-w-7xl mx-auto"
+      >
         {/* Food & Wine Tours Button */}
         <GridItem w="100%">
           <Button
