@@ -1,10 +1,8 @@
 'use client'
-
 import { useParams } from "next/navigation"
 import MainLayout from "@/components/layout/MainLayout"
 import '../../../app/globals.css';
-import PackageDetails from "@/components/product/PackageDetails/PackageDetailsMain";
-
+import PackageDetailsMain from "@/components/product/PackageDetails/PackageDetailsMain";
 
 const PackageDetailsPage = () => {
     const params = useParams();
@@ -15,21 +13,11 @@ const PackageDetailsPage = () => {
         console.error("Package ID is undefined");
         return;
     }
-    
-
-
     return (
-
-
         <div>
-            <PackageDetails  ID={packageID} />
-
-
+         <PackageDetailsMain  ID={packageID} />
         </div>
     )
-
-
-
 
 }
 
