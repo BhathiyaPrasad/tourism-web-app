@@ -8,6 +8,12 @@
   padding-right: 1rem; /* Equivalent to px-4 in Tailwind */
 }
 
+.imageDiv{
+position:relative;
+height:400px
+
+}
+
 @media (min-width: 426px) and (max-width: 768px) {
   .container {
     width: 40rem;

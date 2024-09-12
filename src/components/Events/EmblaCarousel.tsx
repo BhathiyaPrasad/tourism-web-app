@@ -10,6 +10,8 @@ import LoadingEvent from './Loading'
 import { collection, getDocs } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 import style from './embla.module.css'
+import test1 from '../../../public/assets/kandy/kandyperahara.jpg';
+import test2 from '../../../public/assets/sigiriya/10.jpg';
 
 type PropType = {
   options?: EmblaOptionsType
@@ -22,6 +24,7 @@ hide:boolean;
 date:string;
 time:string;
 location:string;
+imageUrl: string;
 }
 
 const SriLankaEventsCarousel: React.FC<PropType> = (props) => {
@@ -81,16 +84,6 @@ const SriLankaEventsCarousel: React.FC<PropType> = (props) => {
     fetchEventsData();
   },[])
 
-
-
-
-
-
-
-
-
-
-
 const events = [
   { title: "Vesak Festival", date: "May 26, 2024", location: "Colombo", time: "All day" },
   { title: "Kandy Esala Perahera", date: "August 5-15, 2024", location: "Kandy", time: "Evening" },
@@ -101,8 +94,6 @@ const events = [
 if (loading) {
   return <LoadingEvent />
 }
-
-
 
 return (
   <div>
@@ -115,10 +106,10 @@ return (
               {eventData.map((event, index) => (
                 <div key={index} className="embla__slide flex-[0_0_100%] min-w-0 px-2">
                   <div className="bg-white rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:scale-105">
-                    <div className="relative h-48">
+                    <div className={style.imageDiv}>
                       <Image
                         className="embla__slide__img"
-                        src={test}
+                        src={test1}
                         alt={event.name}
                         layout="fill"
                         objectFit="cover"
