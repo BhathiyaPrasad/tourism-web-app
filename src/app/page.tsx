@@ -16,7 +16,7 @@ export default function Home() {
       <Title title='Trending Packages' />
       <HomePackage limits={6} />
       <Button name='View More ' />
-      <Title title='Upcoming Events In Sri Lanka' />
+      <Title title='Upcoming Events' />
       <EmblaCarousel />
       <Title title='Gallery' />
       <Gallery />
