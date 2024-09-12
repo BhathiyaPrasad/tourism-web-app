@@ -15,11 +15,12 @@ export default function Home() {
       <MainLayout />
       <Title title='Trending Packages' />
       <HomePackage limits={6} />
-      <Button name='View More ' />
+      <Button name='View More ' url='/packages' />
       <Title title='Upcoming Events' />
       <EmblaCarousel />
       <Title title='Gallery' />
-      <Gallery />
+      <Gallery Gallerylimits={6} />
+      <Button name='View More' url='/places' />
       <Footer />
     </div>
   );

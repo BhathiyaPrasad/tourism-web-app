@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { db } from "@/lib/firebase";
 import LoadingGallery from "./LoadingGallery";
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, limit, query } from "firebase/firestore";
 
 type gData = {
   id: string;
@@ -15,17 +15,25 @@ type gData = {
   description: string
 
 }
+ interface GalleryProps {
+  Gallerylimits :number;
+}
 
 
 
-const Gallery: React.FC = () => {
+const Gallery: React.FC = ({Gallerylimits}:GalleryProps) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [gData, setGData] = useState<gData[]>([]);
 
   useEffect(() => {                                      // this useEffect function realtimely  retrieves the data from the databse
     const fetchGalleryData = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, 'gallery'));
+        const itemsRef = collection(db, 'gallery');
+        const itemsQuery = query(
+          itemsRef,
+          limit(Gallerylimits)
+        );
+        const querySnapshot = await getDocs(itemsQuery);
         const galleryData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as gData));
         setGData(galleryData);
 
@@ -36,7 +44,7 @@ const Gallery: React.FC = () => {
       }
     };
     fetchGalleryData()
-  }, []);
+  }, [Gallerylimits]);
   if (loading) {
     return <LoadingGallery />
   }
@@ -46,10 +54,6 @@ const Gallery: React.FC = () => {
       <section className="text-gray-600 body-font bg-white z-10">
         <div className="container px-2 py-8 mx-auto">
           <div className="flex flex-col text-center w-full mb-10">
-
-            <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500">
-              Explore our curated selection of packages designed to rejuvenate and inspire.
-            </p>
           </div>
           <div className="flex flex-wrap -m-4">
             {gData.map((gallery, index) => (
