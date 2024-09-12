@@ -8,8 +8,8 @@ import image from '../../../../public/assets/hill/5.jpg'
 import PackageDetailsPlaces from "./PackageDetailsPlaces";
 import Title from "@/components/Title/Title";
 import Button from "@/components/common/button/Button";
-import { FaCalendarAlt, FaUserFriends, FaMapMarkerAlt, FaClock, FaStar } from 'react-icons/fa';
-
+import { FaCalendarAlt, FaUserFriends, FaMapMarkerAlt, FaClock, FaStar, FaArrowLeft } from 'react-icons/fa';
+import Link from "next/link";
 
 // Define the type for package details
 interface PackageDetailsType {
@@ -85,6 +85,12 @@ const PackageDetailsMain = ({ ID }: { ID: string }) => {
 
   return (
     <div className="bg-white-100 py-12">
+      <div className="container mx-auto px-5 py-4">
+  <Link href="/packages" className="inline-flex items-center text-indigo-600 hover:text-indigo-800">
+    <FaArrowLeft className="mr-2" />
+    Back to Packages
+  </Link>
+</div>
       <Title title='Package Details' />
       <section className="text-gray-600 body-font">
         <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
