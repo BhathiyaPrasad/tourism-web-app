@@ -25,7 +25,10 @@ return (
               {name}
             </h2>
             <p className="leading-relaxed text-base sm:text-lg text-gray-600">
-              Glossier echo park pug, church-key sartorial biodiesel vexillologist pop-up snackwave ramps cornhole. Marfa 3 wolf moon party messenger bag selfies, poke vaporware kombucha lumbersexual pork belly polaroid hoodie portland craft beer.
+            Pinnawala Elephant Orphanage is an orphanage, nursery and captive breeding ground for wild Asian elephants located at Pinnawala village, 13 km (8.1 mi) northwest of Kegalle town in Sabaragamuwa Province of Sri Lanka. Pinnawala is notable for having the largest herd of captive elephants in the world. In 2011, there were 88 elephants, including 37 males and 51 females from 3 generations, living in Pinnawala.
+The orphanage was originally founded in order to afford care and protection to many of the orphaned unweaned wild elephants found wandering in and near the forests of Sri Lanka. It was established in 1975 by the Sri Lanka Department of Wildlife Conservation (DWC).
+
+.
             </p>
             <a className="text-indigo-600 hover:text-indigo-800 inline-flex items-center mt-6 transition-colors duration-300 ease-in-out">
               Learn More

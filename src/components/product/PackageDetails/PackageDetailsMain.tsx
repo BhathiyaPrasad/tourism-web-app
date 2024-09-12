@@ -10,6 +10,8 @@ import Title from "@/components/Title/Title";
 import Button from "@/components/common/button/Button";
 import { FaCalendarAlt, FaUserFriends, FaMapMarkerAlt, FaClock, FaStar, FaArrowLeft } from 'react-icons/fa';
 import Link from "next/link";
+import GoogleMapEmbed from "@/map/Map";
+
 
 // Define the type for package details
 interface PackageDetailsType {
@@ -165,6 +167,8 @@ const PackageDetailsMain = ({ ID }: { ID: string }) => {
         ))}
       </div>
 
+
+<GoogleMapEmbed />
     </div>
   );
 };
