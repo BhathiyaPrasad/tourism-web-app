@@ -5,7 +5,11 @@ import { db } from "@/lib/firebase";
 import LoadingCard from "@/components/HomePackage/LoadingCard";
 import Image from "next/image";
 import image from '../../../../public/assets/hill/5.jpg'
-import PackageDetailsRoute from "./PackageDetailsRoute";
+import PackageDetailsPlaces from "./PackageDetailsPlaces";
+import Title from "@/components/Title/Title";
+import Button from "@/components/common/button/Button";
+import { FaCalendarAlt, FaUserFriends, FaMapMarkerAlt, FaClock, FaStar } from 'react-icons/fa';
+
 
 // Define the type for package details
 interface PackageDetailsType {
@@ -80,36 +84,71 @@ const PackageDetailsMain = ({ ID }: { ID: string }) => {
   }
 
   return (
-    <div>
-      <h1></h1>
-      <p></p>
-
-      <section className="text-gray-600 body-font">
-        <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
-        <div className="lg:w-1/2 w-full mb-10 lg:mb-0 rounded-lg overflow-hidden">
-      <Image alt="feature" className="object-cover object-center h-full w-full" src={image} />
-    </div>
-          <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
-            <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">{packageDetails.name}
-           
-            </h1>
-            <p className="mb-8 leading-relaxed">{packageDetails.description}</p>
-            {/* <div className="flex justify-center">
-              <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
-              <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Button</button>
-            </div> */}
-          </div>
+    <div className="bg-white-100 py-12">
+    <Title title='Package Details' />
+    <section className="text-gray-600 body-font">
+      <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+        <div className="lg:w-1/2 w-full mb-10 lg:mb-0 rounded-lg overflow-hidden shadow-lg">
+          <Image 
+            alt="feature" 
+            className="object-cover object-center h-full w-full transition-transform duration-300 transform hover:scale-105" 
+            src={image}
+            width={600}
+            height={400}
+          />
         </div>
-      </section>
-
-
+        <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+          <h1 className="title-font sm:text-4xl text-3xl mb-4 font-bold text-gray-900">
+            {packageDetails.name}
+          </h1>
+          <p className="mb-8 leading-relaxed text-lg">{packageDetails.description}</p>
+          
+          <div className="flex flex-wrap mb-8 w-full">
+            <div className="p-2 sm:w-1/2 w-full">
+              <div className="bg-gray-200 rounded flex p-4 h-full items-center">
+                <FaCalendarAlt className="text-indigo-500 w-6 h-6 flex-shrink-0 mr-4"/>
+                <span className="title-font font-medium">{packageDetails.name} Days</span>
+              </div>
+            </div>
+            <div className="p-2 sm:w-1/2 w-full">
+              <div className="bg-gray-200 rounded flex p-4 h-full items-center">
+                <FaUserFriends className="text-indigo-500 w-6 h-6 flex-shrink-0 mr-4"/>
+                <span className="title-font font-medium">Max {packageDetails.name} People</span>
+              </div>
+            </div>
+            <div className="p-2 sm:w-1/2 w-full">
+              <div className="bg-gray-200 rounded flex p-4 h-full items-center">
+                <FaMapMarkerAlt className="text-indigo-500 w-6 h-6 flex-shrink-0 mr-4"/>
+                <span className="title-font font-medium">{packageDetails.name}</span>
+              </div>
+            </div>
+            <div className="p-2 sm:w-1/2 w-full">
+              <div className="bg-gray-200 rounded flex p-4 h-full items-center">
+                <FaStar className="text-yellow-400 w-6 h-6 flex-shrink-0 mr-4"/>
+                <span className="title-font font-medium">{packageDetails.name} Star Rating</span>
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex justify-between items-center w-full mb-8">
+            <span className="text-2xl font-bold text-indigo-600">${packageDetails.name} USD</span>
+            <span className="text-gray-500">per person</span>
+          </div>
+          
+          <Button url='/book' name='Book Now'/>
+        </div>
+      </div>
+    </section>
+  
+      <Title title='Destinations' />
+  {/* Places List  */}
       <div>
         {places.map((place) => (
           <div key={place.id}>
-          <PackageDetailsRoute name={place.name} /></div>
+            <PackageDetailsPlaces name={place.name} /></div>
         ))}
       </div>
-      {/* Add more fields as needed */}
+    
     </div>
   );
 };
