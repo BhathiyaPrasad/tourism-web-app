@@ -131,7 +131,7 @@ const PackageDetailsMain = ({ ID }: { ID: string }) => {
           </div>
           
           <div className="flex justify-between items-center w-full mb-8">
-            <span className="text-2xl font-bold text-indigo-600">${packageDetails.name} USD</span>
+            <span className="text-2xl font-bold text-indigo-600">1500.00 USD</span>
             <span className="text-gray-500">per person</span>
           </div>
           
