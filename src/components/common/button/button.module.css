@@ -1,0 +1,25 @@
+.buttonView {
+    background-color: rgb(41, 76, 192);
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    margin-top: 0.5rem;
+    /* margin-right:10rem; */
+    border-radius: 0.25rem;
+    text-align: center;
+    display: inline-block;
+    width: 100%; /* Full width for mobile */
+    max-width: 300px;
+    height: 50px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+.buttonView:hover {
+    background-color: rgba(102, 15, 201, 0.8);
+    transform: translateY(-2px);
+}
+
+.container {
+    align-items: center;
+    text-align: center;
+    margin:2rem;
+}
