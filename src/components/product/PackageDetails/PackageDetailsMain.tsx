@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import LoadingCard from "@/components/HomePackage/LoadingCard";
+import Image from "next/image";
+import image from '../../../../public/assets/hill/5.jpg'
+import PackageDetailsRoute from "./PackageDetailsRoute";
 
 // Define the type for package details
 interface PackageDetailsType {
@@ -46,7 +49,7 @@ const getPackageDetail = async (packageID: string) => {
   }
 };
 
-const PackageDetails = ({ ID }: { ID: string }) => {
+const PackageDetailsMain = ({ ID }: { ID: string }) => {
   const [packageDetails, setPackageDetails] = useState<PackageDetailsType | null>(null);
   const [places, setPlaces] = useState<PlaceType[]>([]);
   const [loading, setLoading] = useState(true);
@@ -78,11 +81,32 @@ const PackageDetails = ({ ID }: { ID: string }) => {
 
   return (
     <div>
-      <h1>{packageDetails.name}</h1>
-      <p>{packageDetails.description}</p>
+      <h1></h1>
+      <p></p>
+
+      <section className="text-gray-600 body-font">
+        <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+        <div className="lg:w-1/2 w-full mb-10 lg:mb-0 rounded-lg overflow-hidden">
+      <Image alt="feature" className="object-cover object-center h-full w-full" src={image} />
+    </div>
+          <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+            <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">{packageDetails.name}
+           
+            </h1>
+            <p className="mb-8 leading-relaxed">{packageDetails.description}</p>
+            {/* <div className="flex justify-center">
+              <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
+              <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Button</button>
+            </div> */}
+          </div>
+        </div>
+      </section>
+
+
       <div>
         {places.map((place) => (
-          <div key={place.id}>{place.name}</div>
+          <div key={place.id}>
+          <PackageDetailsRoute name={place.name} /></div>
         ))}
       </div>
       {/* Add more fields as needed */}
@@ -90,4 +114,4 @@ const PackageDetails = ({ ID }: { ID: string }) => {
   );
 };
 
-export default PackageDetails;
+export default PackageDetailsMain;
