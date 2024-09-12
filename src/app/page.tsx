@@ -7,6 +7,7 @@ import Gallery from "@/components/product/gallery/Gallery";
 import HomeCategoryButtons from "@/components/product/CategoryButtons/HomeCategoryButtons";
 import EmblaCarousel from "@/components/Events/EmblaCarousel";
 import Title from "@/components/Title/Title";
+import Button from "@/components/common/button/Button";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <MainLayout />
       <Title title='Trending Packages' />
       <HomePackage limits={6} />
+      <Button name='View More ' />
       <Title title='Upcoming Events In Sri Lanka' />
       <EmblaCarousel />
       <Title title='Gallery' />
