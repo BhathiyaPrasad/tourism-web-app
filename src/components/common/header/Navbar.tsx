@@ -5,75 +5,46 @@ import Translate from '../../translate/Translate';
 import Image from "next/image";
 import Logo from '../../../../public/assets/jagathlogo3.png';
 import styles from './Navbar.module.css';
-import { px } from "framer-motion";
 
 const Navbar = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [scroll, setScroll] = useState(true)
-
-
+  const [scroll, setScroll] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      const scrolls = window.scrollY
+      const scrolls = window.scrollY;
      
-      // Check if the user has scrolled down past the last scroll position
-       if (scrolls < 300) {
+      if (scrolls < 300) {
         setScroll(false);
-      }
-
-      else if (currentScrollY > lastScrollY) {
+      } else if (currentScrollY > lastScrollY) {
         setIsVisible(false);  // Hide the navbar
-      }
-      else {
-        setIsVisible(true)
+      } else {
+        setIsVisible(true);
         setScroll(true);   // Show the navbar
-
       }
-
-      // Update the last scroll position to the current scroll position
       setLastScrollY(currentScrollY);
     };
 
-    // Add scroll event listener
     window.addEventListener('scroll', handleScroll);
-
-    // Clean up the event listener on component unmount
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-
-  
   }, [lastScrollY]);
 
- 
-
-
   return (
-    <div className={`navbar fixed top-0 left-0 w-full ${styles.navbarCustom} ${isVisible ? 'z-10' : '-z-10'} ${(scroll && isVisible) ? 'bg-[rgba(249,115,22,1)]' : ''}`}>
-
-
+    <div className={`navbar fixed top-0 left-0 w-full transition-all duration-300 ease-in-out ${styles.navbarCustom} 
+      ${isVisible ? 'z-10' : '-z-10'} ${(scroll && isVisible) ? 'bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 shadow-md' : 'bg-transparent'}`}>
+      
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className={`btn btn-ghost lg:hidden ${styles.dropdownButton}`}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16" />
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
             </svg>
           </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+          <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow-lg transition-transform transform origin-top duration-200 ease-in-out">
             <li><Link href='/'>HOME</Link></li>
             <li><Link href='/packages'>PACKAGES</Link></li>
             <li><Link href='/places'>PLACES</Link></li>
@@ -82,12 +53,17 @@ const Navbar = () => {
           </ul>
         </div>
         <Link href='/' className={`${styles.logoLink}`}>
-          <Image className={styles.logo} src={Logo} alt='Jagath Travels Logo' />
-          <span className="ml-2"></span>
-        </Link>
+  <Image
+    className={`${styles.logo} transition-all duration-300 ease-in-out ${isVisible ? 'h-12 w-auto' : 'h-8 w-auto'}`}
+    src={Logo}
+    alt='Jagath Travels Logo'
+  />
+</Link>
+
       </div>
+      
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal px-1 text-white font-semibold">
           <li className={styles.menuItem}><Link href='/'>HOME</Link></li>
           <li className={styles.menuItem}><Link href='/packages'>PACKAGES</Link></li>
           <li className={styles.menuItem}><Link href='/places'>PLACES</Link></li>
@@ -95,6 +71,7 @@ const Navbar = () => {
           <li className={styles.menuItem}><Link href='/contact'>CONTACT</Link></li>
         </ul>
       </div>
+      
       <div className="navbar-end">
         <Translate />
       </div>
