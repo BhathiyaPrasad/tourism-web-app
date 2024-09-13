@@ -7,7 +7,7 @@ function places() {
   return (
     <div>
       <MainLayout />
-      <Title title='Gallery' />
+     
       <Gallery Gallerylimits={1000} />
     </div>
   )
