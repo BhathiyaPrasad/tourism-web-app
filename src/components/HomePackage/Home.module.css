@@ -119,9 +119,9 @@
   }
   .container {
     align-item: center;
-    padding: 0px 0px;
+    padding: 15px 0px;
     margin-bottom: 8px;
-    margin-left:2rem ;
+    margin-left:1.7rem ;
     margin-right: 1.8rem;
     z-index: 10;
   }

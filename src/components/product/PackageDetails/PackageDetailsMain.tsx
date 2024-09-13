@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import LoadingCard from "@/components/HomePackage/LoadingCard";
+import PackageDetailLoadingCard from "./PackageDetailLoadingCard";
 import Image from "next/image";
 import image from '../../../../public/assets/hill/5.jpg'
 import PackageDetailsPlaces from "./PackageDetailsPlaces";
@@ -79,7 +79,7 @@ const PackageDetailsMain = ({ ID }: { ID: string }) => {
   }, [ID]);
 
   if (loading) {
-    return <LoadingCard />;
+    return <PackageDetailLoadingCard />;
   }
 
   if (!packageDetails) {
@@ -87,7 +87,7 @@ const PackageDetailsMain = ({ ID }: { ID: string }) => {
   }
 
   return (
-    <div className="bg-white-100 py-12">
+    <div className="bg-white-100 py-2">
       <div className="container mx-auto px-5 py-4">
         <Link href="/packages" className="inline-flex items-center text-indigo-600 hover:text-indigo-800">
           <FaArrowLeft className="mr-2" />
@@ -96,7 +96,7 @@ const PackageDetailsMain = ({ ID }: { ID: string }) => {
       </div>
       <Title title='Package Details' />
       <section className="text-gray-600 body-font">
-        <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+        <div className="container mx-auto flex px-5 py-10 md:flex-row flex-col items-center">
           <div className="lg:w-1/2 w-full mb-10 lg:mb-0 rounded-lg overflow-hidden shadow-lg">
             <Image
               alt="feature"
