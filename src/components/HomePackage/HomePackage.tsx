@@ -79,7 +79,7 @@ const HomePackage = ({ limits }: { limits: number }) => {
             console.log('Mapped Image:', imageMapping[pkg.id]);
 
             return (
-              <div key={pkg.id} className="p-4 md:w-1/3">
+              <div key={pkg.id} className={Styles.main}>
                 <div className={`${Styles.card} h-full`}>
                   <Image
                     className={Styles.image}
