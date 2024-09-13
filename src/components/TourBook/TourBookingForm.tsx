@@ -101,7 +101,6 @@ const TourBookingForm = () => {
             <Image
              src={logo}
              alt="Sri Lanka"
-             borderRadius="lg"
              height={100} // Default height
              width={100}  // Default width
              style=
