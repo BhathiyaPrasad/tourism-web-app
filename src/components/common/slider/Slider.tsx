@@ -5,12 +5,13 @@ import useEmblaCarousel, { UseEmblaCarouselType } from "embla-carousel-react";
 import { EmblaOptionsType } from "embla-carousel";
 import Fade from "embla-carousel-fade";
 import "./slider.css";
+import Logo from '../../../../public/assets/jagathlogo3.png';
+import Image from 'next/image'
 
 const videos = [
-  { src: "/viedeos/test.webm", topic: "Experience Rich Cultural Heritage" },
-  { src: "/viedeos/viedeo1 (2).webm", topic: "Discover Pristine Beaches" },
-  { src: "/viedeos/viedeo1 (6).webm", topic: "Experience Rich Cultural Heritage" },
-  { src: "/viedeos/viedeo1 (7).webm", topic: "Encounter Diverse Wildlife" },
+  { src: "/viedeos/test.webm", topic: "Discover Pristine Beaches" },
+  { src: "/viedeos/viedeo1 (6).webm", topic: "Encounter Diverse Wildlife " },
+  { src: "/viedeos/viedeo1 (7).webm", topic: "Experience Rich Cultural Heritage" },
 ];
 
 const options: EmblaOptionsType = { loop: true };
@@ -66,7 +67,7 @@ export default function Slider() {
             <div className="embla__slide" key={index}>
               <video autoPlay loop muted width="100%">
                 <source src={video.src} type="video/mp4" />
-                Your browser does not support the video tag.
+                <Image className='z-1000' src={Logo} alt='test' width={100} height={100} />
               </video>
             </div>
           ))}
