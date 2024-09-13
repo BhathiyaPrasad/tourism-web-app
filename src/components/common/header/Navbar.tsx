@@ -52,7 +52,9 @@ const Navbar = () => {
 
 
   return (
-    <div className={`navbar fixed top-0 left-0 w-full ${styles.navbarCustom} ${isVisible ? 'z-10' : '-z-10'} ${(scroll && isVisible) ?  'bg-gray-800' :''}`}>
+    <div className={`navbar fixed top-0 left-0 w-full ${styles.navbarCustom} ${isVisible ? 'z-10' : '-z-10'} ${(scroll && isVisible) ? 'bg-[rgba(249,115,22,1)]' : ''}`}>
+
+
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className={`btn btn-ghost lg:hidden ${styles.dropdownButton}`}>
