@@ -7,7 +7,7 @@ const Book = () => {
 
 
     return( <div>
-        <div>this is book forum</div>
+        
         <TourBookingForm />
         </div>
     )
