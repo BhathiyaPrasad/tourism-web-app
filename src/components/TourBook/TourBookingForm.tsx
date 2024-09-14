@@ -1,8 +1,9 @@
 'use client'
 import React, { useState } from 'react';
 import { ChakraProvider, Box, VStack, HStack,Text, Input, Textarea,  Button, FormControl, FormLabel,  Heading,  Select,  NumberInput,  NumberInputField,  NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper,  Flex,extendTheme,keyframes,} from "@chakra-ui/react";
-import logo from '../../../public/assets/jagathlogo3.png'
+import logo from '../../../public/assets/jagathlogo4.png'
 import Image from 'next/image'
+import TawkToChat from '@/components/common/chat/chat'
 
 const fadeIn = keyframes`
   from { opacity: 0; }
@@ -79,6 +80,7 @@ const TourBookingForm = () => {
     };
 
     return (
+      <>
         <ChakraProvider theme={theme}>
         <Box
           maxWidth="800px"
@@ -89,32 +91,59 @@ const TourBookingForm = () => {
           bg="white"
           animation={`${fadeIn} 0.5s ease-out`}
         >
-          <Flex direction={{ base: 'column', md: 'row' }} align="center" justify="space-between" mb={8}>
-            <Box textAlign={{ base: 'center', md: 'left' }}>
-              <Heading as="h1" size="xl" color="brand.600" mb={2}>
-                Tour Inquiry
-              </Heading>
-              <Text fontSize="lg" color="gray.600">
-                Plan your perfect Sri Lanka adventure
-              </Text>
-            </Box>
-            <Image
-             src={logo}
-             alt="Sri Lanka"
-             height={100} // Default height
-             width={100}  // Default width
-             style=
-            {{ 
-               height: 'auto', // Ensure the height is auto to maintain aspect ratio
-               width: 'auto',  // Ensure the width is auto to maintain aspect ratio
-               maxWidth: '100%', // Make sure the image doesn't exceed its container width
-            }}
-    sizes="(max-width: 768px) 80px, 100px" // Responsive sizes based on viewport width
-    quality={75} // Optional: Adjust the quality for optimization
-  />
-          </Flex>
+         <Flex direction={{ base: 'column', md: 'row' }} align="center" justify="space-between" mb={8}>
+  <Box
+    display={{ base: 'block', md: 'none' }} // Show logo on mobile only
+    mb={4} // Margin for spacing on mobile
+    textAlign="center"
+  >
+    <Image
+      src={logo}
+      alt="Sri Lanka"
+      height={100}
+      width={100}
+      style={{
+        height: 'auto',
+        width: 'auto',
+        maxWidth: '100%',
+      }}
+      sizes="(max-width: 768px) 80px, 100px"
+      quality={75}
+    />
+  </Box>
   
-          <form onSubmit={handleSubmit}>
+  <Box
+    textAlign={{ base: 'center', md: 'left' }} // Center text on mobile, left-align on larger screens
+    mb={{ base: 4, md: 0 }} // Margin for spacing on mobile
+  >
+    <Heading as="h1" size="xl" color="brand.600" mb={2}>
+      Tour Inquiry
+    </Heading>
+    <Text fontSize="lg" color="gray.600">
+              Plan your perfect Sri Lanka adventure
+            </Text>
+  </Box>
+  
+  <Box
+    display={{ base: 'none', md: 'block' }} // Hide logo on mobile
+    textAlign="right"
+  >
+    <Image
+      src={logo}
+      alt="Sri Lanka"
+      height={100}
+      width={100}
+      style={{
+        height: 'auto',
+        width: 'auto',
+        maxWidth: '100%',
+      }}
+      sizes="(max-width: 768px) 80px, 100px"
+      quality={75}
+    />
+  </Box>
+</Flex>
+ <form onSubmit={handleSubmit}>
             <VStack spacing={6} align="stretch">
               <HStack spacing={4} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
                 <FormControl isRequired flex={1} minW={{ base: '100%', md: '40%' }}>
@@ -288,7 +317,9 @@ const TourBookingForm = () => {
             </VStack>
           </form>
         </Box>
-      </ChakraProvider>
+        </ChakraProvider>
+        <TawkToChat />
+        </>
     );
 };
 export default TourBookingForm;
