@@ -9,6 +9,8 @@ import EmblaCarousel from "@/components/Events/EmblaCarousel";
 import Title from "@/components/Title/Title";
 import Button from "@/components/common/button/Button";
 
+
+
 export default function Home() {
   return (
     <div data-theme='light'>
@@ -22,6 +24,7 @@ export default function Home() {
       <Gallery Gallerylimits={6} />
       <Button name='View More' url='/places' />
       <Footer />
+     
     </div>
   );
 }
