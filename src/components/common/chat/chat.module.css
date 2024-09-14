@@ -1,0 +1,8 @@
+/* chat.module.css */
+.tawk {
+  position: fixed;
+  bottom: 20px; /* Adjust as needed */
+  left: 20px;   /* Adjust as needed */
+  z-index: 9999;
+  padding-right: 20px; /* Adjust or remove if not needed */
+}

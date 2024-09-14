@@ -5,7 +5,7 @@ import product from '../../../../public/assets/sigiriya.jpg';
 import { db } from "@/lib/firebase";
 import LoadingGallery from "./LoadingGallery";
 import { getDocs, collection, limit, query } from "firebase/firestore";
-
+import Title from '../../Title/Title'
 type gData = {
   id: string;
   location: string;
@@ -49,6 +49,7 @@ const Gallery: React.FC<GalleryProps> = ({ Gallerylimits }) => {
   return (
     <section className="text-gray-600 body-font bg-white z-10">
       <div className="container px-2 py-8 mx-auto">
+      <Title title='Popular Destinations' />
         <div className="flex flex-col text-center w-full mb-10"></div>
         <div className="flex flex-wrap -m-4">
           {gData.map((gallery, index) => (
