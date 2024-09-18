@@ -108,12 +108,29 @@ const TourBookingForm = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Inquiry submitted:', formData);
-    // Here you would typically send this data to your backend
-  };
+    try {
+      const response = await fetch('api/mail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
+      const result = response.json();
+      if (response.ok) {
+        alert('Email sent successfully');
+      } else {
+        alert('Error Sending Email')
+      }
+    } catch (error) {
+      console.error('Error', error)
+
+    }
+  };
   return (
     <>
       <ChakraProvider theme={theme}>
