@@ -5,7 +5,7 @@ const resend = new Resend(process.env.EMAIL_API_KEY);
 
 export async function POST(request: Request) {
     try {
-        const { email, userFirstname , packageName , fromDate , toDate , accommodation } = await request.json();
+        const { email, name , tourType , arrivalDate , departureDate , accommodation } = await request.json();
 
         // Define HTML content as a string
         const emailHtml = `
@@ -52,15 +52,15 @@ export async function POST(request: Request) {
         <tr style="width:100%">
           <td><img class="logo" alt="Jagath Travel Logo" height="100" src="https://tourism-web-app-eight.vercel.app/assets/jagathlogo4.png" style="display:block;outline:none;border:none;text-decoration:none;margin:0 auto;margin-bottom:20px" width="150" />
             <h1 class="heading" style="color:#333;font-size:24px;font-weight:bold;padding:17px 0 0;margin:0">Thank You for Your Travel Inquiry</h1>
-            <p class="text" style="font-size:16px;line-height:26px;margin:16px 0;color:#333">Dear ${userFirstname},</p>
+            <p class="text" style="font-size:16px;line-height:26px;margin:16px 0;color:#333">Dear ${name},</p>
             <p class="text" style="font-size:16px;line-height:26px;margin:16px 0;color:#333">Thank you for your interest in our travel packages. We are excited to help you plan your dream vacation to <!-- -->Your Dream Destination<!-- -->!</p>
             <p class="text" style="font-size:16px;line-height:26px;margin:16px 0;color:#333">We have received your inquiry with the following details:</p>
             <table align="center" width="100%" class="detailsContainer" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="background-color:#f5f5f5;padding:20px;border-radius:4px;margin:20px 0">
               <tbody>
                 <tr>
                   <td>
-                    <p class="detailText" style="font-size:14px;line-height:24px;margin:5px 0;color:#333"><strong>Tour Package:</strong> <!-- --> ${packageName}</p>
-                    <p class="detailText" style="font-size:14px;line-height:24px;margin:5px 0;color:#333"><strong>Preferred Travel Dates:</strong> <!-- --> ${fromDate} -  ${toDate}</p>
+                    <p class="detailText" style="font-size:14px;line-height:24px;margin:5px 0;color:#333"><strong>Tour Package:</strong> <!-- --> ${tourType}</p>
+                    <p class="detailText" style="font-size:14px;line-height:24px;margin:5px 0;color:#333"><strong>Preferred Travel Dates:</strong> <!-- --> ${arrivalDate} -  ${departureDate}</p>
                     <p class="detailText" style="font-size:14px;line-height:24px;margin:5px 0;color:#333"><strong>Accomodation:</strong> <!-- --> ${accommodation}</p>
                   </td>
                 </tr>
@@ -82,7 +82,7 @@ export async function POST(request: Request) {
             from: "Acme <onboarding@resend.dev>",
             to: email, // Use the email address from request
             subject: "Inquiry Confirmation",
-            html: emailHtml // Pass the HTML string directly
+            html: emailHtml // Pass the HTML string directlya
         });
 
         if (error) {
