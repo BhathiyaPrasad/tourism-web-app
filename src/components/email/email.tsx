@@ -15,9 +15,7 @@ import {
 
 const logoUrl = "https://tourism-web-app-eight.vercel.app/assets/jagathlogo4.png";
 
-const baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "";
+
 
 interface TravelInquiryEmailProps {
   customerName?: string;
