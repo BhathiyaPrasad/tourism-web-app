@@ -5,7 +5,7 @@ const resend = new Resend(process.env.EMAIL_API_KEY);
 
 export async function POST(request: Request) {
     try {
-        const { email, userFirstname } = await request.json();
+        const { email, userFirstname , packageName , fromDate , toDate , accommodation } = await request.json();
 
         // Define HTML content as a string
         const emailHtml = `
@@ -59,9 +59,9 @@ export async function POST(request: Request) {
               <tbody>
                 <tr>
                   <td>
-                    <p class="detailText" style="font-size:14px;line-height:24px;margin:5px 0;color:#333"><strong>Destination:</strong> <!-- -->Your Dream Destination</p>
-                    <p class="detailText" style="font-size:14px;line-height:24px;margin:5px 0;color:#333"><strong>Preferred Travel Dates:</strong> <!-- -->Your Preferred Dates</p>
-                    <p class="detailText" style="font-size:14px;line-height:24px;margin:5px 0;color:#333"><strong>Package Type:</strong> <!-- -->Custom Package</p>
+                    <p class="detailText" style="font-size:14px;line-height:24px;margin:5px 0;color:#333"><strong>Tour Package:</strong> <!-- --> ${packageName}</p>
+                    <p class="detailText" style="font-size:14px;line-height:24px;margin:5px 0;color:#333"><strong>Preferred Travel Dates:</strong> <!-- --> ${fromDate} -  ${toDate}</p>
+                    <p class="detailText" style="font-size:14px;line-height:24px;margin:5px 0;color:#333"><strong>Accomodation:</strong> <!-- --> ${accommodation}</p>
                   </td>
                 </tr>
               </tbody>
