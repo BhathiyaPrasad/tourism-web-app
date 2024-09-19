@@ -1,9 +1,11 @@
+import LoginPage from '@/components/admin/log-in/log'
+
 function adminLanding() {
 
 
 
     return (
-        <div>Log In</div>
+        <div><LoginPage /></div>
     )
 }
 
