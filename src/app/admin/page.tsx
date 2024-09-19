@@ -1,12 +1,10 @@
-import React from 'react'
-import MainLayout from './../../components/layout/MainLayout';
+function adminLanding() {
 
-function admin() {
-  return (
-    <div>
-      MainLayout
-    </div>
-  )
+
+
+    return (
+        <div>Log In</div>
+    )
 }
 
-export default admin
+export default adminLanding;
