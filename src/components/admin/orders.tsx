@@ -5,20 +5,33 @@ import {
   ChakraProvider, Badge, useColorModeValue, Menu, MenuButton, MenuList, MenuItem
 } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
-import Sidebar from '../../components/admin/sidebar/sidebar'
-const mockOrders = Array.from({ length: 50 }, (_, i) => ({
+import Sidebar from '../../components/admin/sidebar/sidebar';
+
+// Define order types
+interface Order {
+  id: number;
+  customer: string;
+  total: number;
+  status: 'Pending' | 'Processing' | 'Shipped' | 'Delivered';
+}
+
+const mockOrders: Order[] = Array.from({ length: 50 }, (_, i) => ({
   id: i + 1,
   customer: `Customer ${i + 1}`,
   total: Math.floor(Math.random() * 1000) + 50,
-  status: ['Pending', 'Processing', 'Shipped', 'Delivered'][Math.floor(Math.random() * 4)]
+  status: ['Pending', 'Processing', 'Shipped', 'Delivered'][Math.floor(Math.random() * 4)] as Order['status'],
 }));
 
-const StatusBadge = ({ status }) => {
+interface StatusBadgeProps {
+  status: 'Pending' | 'Processing' | 'Shipped' | 'Delivered';
+}
+
+const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
   const colorScheme = {
-    'Pending': 'yellow',
-    'Processing': 'blue',
-    'Shipped': 'orange',
-    'Delivered': 'green'
+    Pending: 'yellow',
+    Processing: 'blue',
+    Shipped: 'orange',
+    Delivered: 'green',
   }[status];
 
   return (
@@ -28,16 +41,16 @@ const StatusBadge = ({ status }) => {
   );
 };
 
-const Orders = () => {
-  const [orders, setOrders] = useState(mockOrders);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [ordersPerPage] = useState(10);
-  const [sortField, setSortField] = useState('id');
-  const [sortDirection, setSortDirection] = useState('asc');
-  
+const Orders: React.FC = () => {
+  const [orders, setOrders] = useState<Order[]>(mockOrders);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [ordersPerPage] = useState<number>(10);
+  const [sortField, setSortField] = useState<keyof Order>('id');
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+
   const indexOfLastOrder = currentPage * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
-  
+
   const sortedOrders = [...orders].sort((a, b) => {
     if (a[sortField] < b[sortField]) return sortDirection === 'asc' ? -1 : 1;
     if (a[sortField] > b[sortField]) return sortDirection === 'asc' ? 1 : -1;
@@ -48,17 +61,17 @@ const Orders = () => {
   const totalOrders = orders.length;
   const totalPages = Math.ceil(totalOrders / ordersPerPage);
 
-  const handleStatusChange = (orderId, newStatus) => {
+  const handleStatusChange = (orderId: number, newStatus: Order['status']) => {
     setOrders(orders.map(order =>
       order.id === orderId ? { ...order, status: newStatus } : order
     ));
   };
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
-  const handleSort = (field) => {
+  const handleSort = (field: keyof Order) => {
     if (field === sortField) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
     } else {
@@ -88,7 +101,7 @@ const Orders = () => {
                           {header}
                         </MenuButton>
                         <MenuList>
-                          <MenuItem onClick={() => handleSort(header.toLowerCase())}>
+                          <MenuItem onClick={() => handleSort(header.toLowerCase() as keyof Order)}>
                             Sort {sortDirection === 'asc' ? 'Descending' : 'Ascending'}
                           </MenuItem>
                         </MenuList>
@@ -109,7 +122,7 @@ const Orders = () => {
                       <Select
                         size="sm"
                         value={order.status}
-                        onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                        onChange={(e) => handleStatusChange(order.id, e.target.value as Order['status'])}
                         width="150px"
                       >
                         {['Pending', 'Processing', 'Shipped', 'Delivered'].map((status) => (
