@@ -88,7 +88,7 @@ const Orders: React.FC = () => {
       <Flex>
         <Sidebar />
         <Box flex={1} p={8}>
-          <Heading as="h1" size="xl" mb={6} color="blue.600">Order Management</Heading>
+          <Heading as="h1" size="xl" mb={6} color="blue.600">Tour Bookings</Heading>
           <Box bg={bg} borderRadius="lg" boxShadow="md" p={6} borderWidth={1} borderColor={borderColor}>
             <Text fontSize="lg" fontWeight="medium" mb={4}>Total Orders: {totalOrders}</Text>
             <Table variant="simple">
