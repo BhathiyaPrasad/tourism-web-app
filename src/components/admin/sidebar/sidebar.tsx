@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { VStack, Heading, Button, Icon, useColorModeValue } from '@chakra-ui/react';
-import { FiPackage, FiImage, FiList } from 'react-icons/fi';
+import { FiPackage, FiMapPin, FiList } from 'react-icons/fi';
 import { useRouter } from 'next/navigation';
 
 const Sidebar = () => {
@@ -22,18 +22,18 @@ const Sidebar = () => {
         leftIcon={<Icon as={FiPackage} />}
         justifyContent="flex-start"
         variant="ghost"
-        onClick={() => router.push('/admin/packages')}
+        onClick={() => router.push('/admin/addPackages')}
       >
         Packages
       </Button>
       <Button
-        leftIcon={<Icon as={FiImage} />}
-        justifyContent="flex-start"
-        variant="ghost"
-        onClick={() => router.push('/admin/photos')}
-      >
-        Photos
-      </Button>
+      leftIcon={<Icon as={FiMapPin} />}
+      justifyContent="flex-start"
+      variant="ghost"
+      onClick={() => router.push('/admin/addDestinations')}
+    >
+      Destinations
+    </Button>
     </VStack>
   );
 };
