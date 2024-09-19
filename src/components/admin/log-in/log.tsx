@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import logo from '../../../../public/assets/jagathlogo4.png'
 import Image from 'next/image'
-import {useRouter} from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import {
   Box,
   Button,
@@ -14,7 +14,6 @@ import {
   Input,
   VStack,
   Text,
-  Link,
   useColorModeValue,
   InputGroup,
   InputRightElement,
@@ -23,7 +22,7 @@ import {
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
-const LoginPage = () => {
+const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -31,10 +30,10 @@ const LoginPage = () => {
   const toast = useToast();
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    router.push('/admin/orders')
+    router.push('/admin/orders');
 
     // Simulating an API call
     setTimeout(() => {
@@ -74,10 +73,9 @@ const LoginPage = () => {
           borderColor={useColorModeValue('gray.200', 'gray.700')}
         >
           <VStack spacing={8} align="stretch">
-           
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Image src={logo} width={150} height={150} alt='logo' />
-    </div>
+              <Image src={logo} width={150} height={150} alt='logo' />
+            </div>
             <Heading textAlign="center" size="xl" fontWeight="extrabold">
               Welcome Back
             </Heading>
@@ -132,7 +130,6 @@ const LoginPage = () => {
                 </Button>
               </VStack>
             </form>
-          
           </VStack>
         </Box>
       </Container>
