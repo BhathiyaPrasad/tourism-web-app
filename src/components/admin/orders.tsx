@@ -15,7 +15,7 @@ interface Order {
   status: 'Pending' | 'Processing' | 'Shipped' | 'Delivered';
 }
 
-const mockOrders: Order[] = Array.from({ length: 50 }, (_, i) => ({
+const mockOrders: Order[] = Array.from({ length: 100 }, (_, i) => ({
   id: i + 1,
   customer: `Customer ${i + 1}`,
   total: Math.floor(Math.random() * 1000) + 50,
