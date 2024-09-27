@@ -1,37 +1,11 @@
-import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { AuthOptions, SessionStrategy } from "next-auth"; // Import types
+import NextAuth from 'next-auth';
+import { authOptions } from '../../../../lib/authOptionsFile';  // Adjust the import path
 
-export const authOptions: AuthOptions = {
-  providers: [
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        username: { label: "Username", type: "text", placeholder: "admin@gmail.com" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials) {
-        const user = { id: "1", username: "jagathtravels", password: "jagathtravelsgu391vq9m5" }; // Example user
+// This is your NextAuth handler for the route
+export const handler = NextAuth(authOptions);
 
-        // Verify username and password
-        if (
-          credentials?.username === user.username &&
-          credentials?.password === user.password
-        ) {
-          return user; // Return user object if valid credentials
-        }
-        return null; // Return null if invalid credentials
-      },
-    }),
-  ],
-  pages: {
-    signIn: "/auth/login", // Custom login page
-  },
-  secret: process.env.NEXTAUTH_SECRET, // Define this in your .env file
-  session: {
-    strategy: "jwt" as SessionStrategy, // Use the SessionStrategy type
-  },
-};
+// Export authOptions explicitly
+export { authOptions };
 
-const handler = NextAuth(authOptions);
+// Allow GET and POST methods for NextAuth
 export { handler as GET, handler as POST };
