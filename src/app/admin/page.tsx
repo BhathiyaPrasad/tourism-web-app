@@ -1,13 +1,9 @@
-import React from 'react'
-import AdminOrderPage from '../../components/admin/orders' 
+import React from 'react';
+import AdminOrderPage from '../../components/admin/orders';
 
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation';
-
-
-
-
 
 export default async function OrdersPage() {
   const session = await getServerSession(authOptions);
