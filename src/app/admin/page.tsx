@@ -2,7 +2,7 @@ import React from 'react';
 import AdminOrderPage from '../../components/admin/orders';
 
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/authOptionsFile';
 import { redirect } from 'next/navigation';
 
 export default async function OrdersPage() {
