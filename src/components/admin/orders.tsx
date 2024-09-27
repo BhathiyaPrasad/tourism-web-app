@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box, Heading, Text, Table, Thead, Tbody, Tr, Th, Td, Select, Flex, Button,
   ChakraProvider, Badge, useColorModeValue, Menu, MenuButton, MenuList, MenuItem
@@ -15,7 +15,7 @@ interface Order {
   status: 'Pending' | 'Processing' | 'Shipped' | 'Delivered';
 }
 
-const mockOrders: Order[] = Array.from({ length: 100 }, (_, i) => ({
+const generateMockOrders = (): Order[] => Array.from({ length: 100 }, (_, i) => ({
   id: i + 1,
   customer: `Customer ${i + 1}`,
   total: Math.floor(Math.random() * 1000) + 50,
@@ -42,11 +42,16 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
 };
 
 const Orders: React.FC = () => {
-  const [orders, setOrders] = useState<Order[]>(mockOrders);
+  const [orders, setOrders] = useState<Order[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [ordersPerPage] = useState<number>(10);
   const [sortField, setSortField] = useState<keyof Order>('id');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+
+  useEffect(() => {
+    // Generate orders on the client side
+    setOrders(generateMockOrders());
+  }, []);
 
   const indexOfLastOrder = currentPage * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
