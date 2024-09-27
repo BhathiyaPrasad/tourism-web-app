@@ -1,7 +1,8 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { AuthOptions, SessionStrategy } from "next-auth"; // Import types
 
-export const authOptions = {
+export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -28,7 +29,7 @@ export const authOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET, // Define this in your .env file
   session: {
-    strategy: "jwt", // Use JWT for session handling
+    strategy: "jwt" as SessionStrategy, // Use the SessionStrategy type
   },
 };
 
