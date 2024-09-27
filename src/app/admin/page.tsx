@@ -1,13 +1,22 @@
-import React from 'react'
+import React from 'react';
+import AdminOrderPage from '../../components/admin/orders';
 
-import AdminOrderPage from '../../components/admin/orders' 
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/authOptionsFile';
+import { redirect } from 'next/navigation';
 
-function admin() {
+export default async function OrdersPage() {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    // If no session, redirect to login
+    redirect('/auth/login');
+  }
+
   return (
     <div>
-    <AdminOrderPage />
+      <h1>Admin Orders Page</h1>
+      <AdminOrderPage />
     </div>
-  )
+  );
 }
-
-export default admin

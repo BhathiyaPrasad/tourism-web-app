@@ -1,9 +1,11 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Providers } from './providers'
+import { Providers } from './providers';
 import FloatingButton from "@/components/common/FloatingButton/FloatButton";
-import TawkToChat from "@/components/common/chat/chat"
+import TawkToChat from "@/components/common/chat/chat";
+import SessionWrapper from "./wrappers/SessionWrapper"; 
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +21,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}><Providers>{children} <FloatingButton></FloatingButton><TawkToChat /></Providers></body>
+      <body className={inter.className}>
+        <SessionWrapper> {/* Use SessionWrapper here */}
+          <Providers>{children} <FloatingButton /><TawkToChat /></Providers>
+        </SessionWrapper>
+      </body>
     </html>
   );
 }
