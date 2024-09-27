@@ -1,12 +1,13 @@
-import LoginPage from '@/components/admin/log-in/log'
+import React from 'react'
 
-function adminLanding() {
+import AdminOrderPage from '../../components/admin/orders' 
 
-
-
-    return (
-        <div><LoginPage /></div>
-    )
+function admin() {
+  return (
+    <div>
+    <AdminOrderPage />
+    </div>
+  )
 }
 
-export default adminLanding;
+export default admin

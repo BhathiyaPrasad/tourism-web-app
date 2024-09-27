@@ -5,7 +5,7 @@ import AdminOrderPage from '../../../components/admin/orders'
 function admin() {
   return (
     <div>
-    <AdminOrderPage />
+   this is package edit 
     </div>
   )
 }
