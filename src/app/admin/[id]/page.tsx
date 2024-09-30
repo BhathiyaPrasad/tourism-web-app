@@ -13,7 +13,7 @@ const editPackage = async () => {
 
   return (
     <div>
-   this is package edit 
+      this is package edit 
     </div>
   )
 }

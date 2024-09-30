@@ -9,7 +9,6 @@ function addPackage() {
 
         <div>
             <AddPackage />
-
         </div>
     )
 

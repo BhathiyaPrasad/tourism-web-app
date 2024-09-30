@@ -15,7 +15,6 @@ export default async function OrdersPage() {
 
   return (
     <div>
-      <h1>Admin Orders Page</h1>
       <AdminOrderPage />
     </div>
   );
