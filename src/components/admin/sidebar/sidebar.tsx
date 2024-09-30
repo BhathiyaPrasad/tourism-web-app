@@ -1,24 +1,54 @@
 'use client';
 import React, { useState } from 'react';
-import { VStack, Heading, Button, Icon, Box, useColorModeValue, Flex, Text } from '@chakra-ui/react';
-import { FiPackage, FiMapPin, FiList, FiMenu, FiX } from 'react-icons/fi';
-import { useRouter } from 'next/navigation';
+import {
+  VStack,
+  Heading,
+  Button,
+  Icon,
+  Box,
+  useColorModeValue,
+  Flex,
+  Text,
+  Tooltip,
+  Divider,
+  IconButton
+} from '@chakra-ui/react';
+import { FiPackage, FiMapPin, FiList, FiMenu, FiChevronRight } from 'react-icons/fi';
 import { IoCloseSharp } from "react-icons/io5";
+import { useRouter } from 'next/navigation';
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(true); // State to toggle sidebar visibility
+  const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
 
-  const sidebarBg = useColorModeValue('gray.100', 'gray.700');
-  const buttonBg = useColorModeValue('blue.500', 'blue.300');
-  const buttonColor = useColorModeValue('white', 'gray.900');
+  const sidebarBg = useColorModeValue('white', 'gray.800');
+  const buttonHoverBg = useColorModeValue('gray.100', 'gray.700');
+  const textColor = useColorModeValue('gray.800', 'white');
+  const iconColor = useColorModeValue('blue.500', 'blue.300');
 
-  // Responsive width for sidebar
-  const sidebarWidth = isOpen ? '200px' : '60px';
+  const sidebarWidth = isOpen ? '240px' : '70px';
+
+  const NavItem = ({ icon, label, onClick }) => (
+    <Tooltip label={label} placement="right" isDisabled={isOpen}>
+      <Button
+        aria-label={label}
+        leftIcon={<Icon as={icon} color={iconColor} boxSize={5} />}
+        justifyContent={isOpen ? 'flex-start' : 'center'}
+        width="100%"
+        variant="ghost"
+        onClick={onClick}
+        py={6}
+        borderRadius="0"
+        _hover={{ bg: buttonHoverBg }}
+        transition="all 0.3s"
+      >
+        {isOpen && <Text fontSize="md" fontWeight="medium">{label}</Text>}
+      </Button>
+    </Tooltip>
+  );
 
   return (
     <Box position="relative" display="flex">
-      {/* Sidebar with Slide-In Animation */}
       <Box
         as="nav"
         bg={sidebarBg}
@@ -27,83 +57,62 @@ const Sidebar = () => {
         position="fixed"
         top="0"
         left="0"
-        transition="width 0.4s ease"
-        boxShadow="md"
-        zIndex="999"
-        pt={2}
-        pr={1}
+        transition="all 0.4s ease-in-out"
+        boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
+        zIndex="sticky"
+        overflow="hidden"
       >
-        {/* Toggle button inside the sidebar */}
-        <Flex justify="space-between" align="center" mb={6} p={2}>
-         
+        <Flex justify="space-between" align="center" p={4} height="80px">
+          <Heading size="md" color={textColor} opacity={isOpen ? 1 : 0} transition="opacity 0.4s">
+            Dashboard
+          </Heading>
           <Button
             aria-label={isOpen ? 'Close sidebar' : 'Open sidebar'}
             onClick={() => setIsOpen(!isOpen)}
-            // bg={buttonBg}
-            // color={buttonColor}
-            borderRadius="md"
-            size="sm"
-            // _hover={{ bg: useColorModeValue('blue.600', 'blue.400') }}
-            transition="all 0.3s ease-in-out"
-            p={2}
-          > <Heading size="md" ml={isOpen ? 2 : 0}>
-          {isOpen ? <> Dashboard  <Icon as={IoCloseSharp} ml={8} /> </> : <FiMenu />} {/* Show icon when closed */}
-        </Heading>
-            {/* <Icon as={isOpen ? FiX : FiMenu} /> */}
+            variant="ghost"
+            color={iconColor}
+            _hover={{ bg: buttonHoverBg }}
+          >
+            <Icon as={isOpen ? IoCloseSharp : FiMenu} boxSize={6} />
           </Button>
         </Flex>
 
-        {/* Navigation Buttons */}
-        <VStack spacing={4} align="stretch">
-          <Button
-            aria-label="Orders"
-            leftIcon={<Icon as={FiList} />}
-            justifyContent={isOpen ? 'flex-start' : 'center'}
-            width="100%"
-            variant="ghost"
-            onClick={() => router.push('/admin/orders')}
-            px={isOpen ? 4 : 2}
-          >
-            {isOpen && <Text>Orders</Text>}
-          </Button>
+        <Divider mb={4} />
 
-          <Button
-            aria-label="Packages"
-            leftIcon={<Icon as={FiPackage} />}
-            justifyContent={isOpen ? 'flex-start' : 'center'}
-            width="100%"
-            variant="ghost"
-            onClick={() => router.push('/admin/addPackages')}
-            px={isOpen ? 4 : 2}
-          >
-            {isOpen && <Text>Packages</Text>}
-          </Button>
-
-          <Button
-            aria-label="Destinations"
-            leftIcon={<Icon as={FiMapPin} />}
-            justifyContent={isOpen ? 'flex-start' : 'center'}
-            width="100%"
-            variant="ghost"
-            onClick={() => router.push('/admin/addDestinations')}
-            px={isOpen ? 4 : 2}
-          >
-            {isOpen && <Text>Destinations</Text>}
-          </Button>
+        <VStack spacing={0} align="stretch">
+          <NavItem icon={FiList} label="Orders" onClick={() => router.push('/admin')} />
+          <NavItem icon={FiPackage} label="Packages" onClick={() => router.push('/admin/addPackages')} />
+          <NavItem icon={FiMapPin} label="Destinations" onClick={() => router.push('/admin/addDestinations')} />
         </VStack>
       </Box>
 
-      {/* Main Content with Sidebar Toggle */}
-      <Flex
-        ml={sidebarWidth} // Adjust margin based on sidebar width
-        transition="margin-left 0.4s ease"
-        width="100%"
-        pt={6}
-        alignItems="center"
-        justifyContent="flex-start"
+      {/* Reopen button */}
+      {!isOpen && (
+        <IconButton
+          aria-label="Open sidebar"
+          icon={<FiChevronRight />}
+          position="fixed"
+          left={0}
+          top={2}
+          zIndex="sticky"
+          onClick={() => setIsOpen(true)}
+          variant="solid"
+          colorScheme="blue"
+          size="sm"
+          borderLeftRadius={0}
+          boxShadow="md"
+        />
+      )}
+
+      <Box
+        as="main"
+        ml={sidebarWidth}
+        transition="margin-left 0.4s ease-in-out"
+        width={`calc(100% - ${sidebarWidth})`}
+        p={8}
       >
-       
-      </Flex>
+        {/* Main content goes here */}
+      </Box>
     </Box>
   );
 };
