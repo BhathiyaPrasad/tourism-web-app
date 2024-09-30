@@ -4,7 +4,7 @@ import { ChakraProvider, Box, VStack, HStack, Text, Input, Textarea, Button, For
 import logo from '../../../public/assets/jagathlogo4.png'
 import Image from 'next/image'
 import TawkToChat from '@/components/common/chat/chat'
-import { collection, where, query, getDocs, doc } from 'firebase/firestore'
+import { collection, where, query, getDocs, doc, addDoc } from 'firebase/firestore'
 import { db } from '../../lib/firebase';
 
 
@@ -111,7 +111,9 @@ const TourBookingForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Inquiry submitted:', formData);
+    
     try {
+      // Sending email (if needed)
       const response = await fetch('api/mail', {
         method: 'POST',
         headers: {
@@ -119,19 +121,58 @@ const TourBookingForm = () => {
         },
         body: JSON.stringify(formData),
       });
-
+  
       const result = response.json();
       if (response.ok) {
         alert('Email sent successfully');
       } else {
-        alert('Error Sending Email')
+        alert('Error Sending Email');
       }
     } catch (error) {
-      console.error('Error', error)
-
+      console.error('Error sending email:', error);
+    }
+  
+    try {
+      // Saving form data to Firestore
+      const orgDocId = 'orders';  // Collection name
+      const ordersRef = collection(db, orgDocId);
+  
+      await addDoc(ordersRef, {
+        name: formData.name,
+        email: formData.email,
+        country: formData.country,
+        arrivalDate: formData.arrivalDate,
+        departureDate: formData.departureDate,
+        adults: formData.adults,
+        children: formData.children,
+        tourType: formData.tourType,
+        accommodation: formData.accommodation,
+        additionalRequirements: formData.additionalRequirements,
+        createdAt: new Date(),
+      });
+  
+      console.log('Order saved to Firestore successfully.');
+      alert('Booking information saved successfully!');
+      
+      // Reset form (optional)
+      setFormData({
+        name: '',
+        email: '',
+        country: '',
+        arrivalDate: '',
+        departureDate: '',
+        adults: 2,
+        children: 0,
+        tourType: '',
+        accommodation: '',
+        additionalRequirements: '',
+      });
+    } catch (error) {
+      console.error('Error saving items to Firestore:', error);
+      alert('Error saving booking information.');
     }
   };
-  return (
+    return (
     <>
       <ChakraProvider theme={theme}>
         <Box
