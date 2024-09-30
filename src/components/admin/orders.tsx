@@ -8,14 +8,25 @@ import {
 } from '@chakra-ui/react';
 import { ChevronDownIcon, ViewIcon } from '@chakra-ui/icons';
 import Sidebar from '../../components/admin/sidebar/sidebar';
-
+import { db } from "@/lib/firebase";
+import { getDocs, collection, query, where, limit } from "firebase/firestore";
 // Define order types
+
+
 interface Order {
-  id: number;
+  id: string;
   customer: string;
   total: number;
-  status: 'Pending' | 'Processing' | 'Shipped' | 'Delivered';
+  status: 'Pending' | 'Processing';
 }
+
+type Order = {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  description: string;
+};
 
 const generateMockOrders = (): Order[] => Array.from({ length: 100 }, (_, i) => ({
   id: i + 1,
@@ -51,12 +62,32 @@ const Orders: React.FC = () => {
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [loading , setLoading] = useState(true);
 
   useEffect(() => {
-    // Generate orders on the client side
-    setOrders(generateMockOrders());
+    const fetchData = async () => {
+      try {
+        const OrganizationID = 'orders'
+        const itemsRef = collection(db, OrganizationID);
+        const itemsQuery = query(
+          itemsRef,
+          where("id", "!=", "")
+         
+        );
+        const querySnapshot = await getDocs(itemsQuery);
+        const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Order));
+        setOrders(data);
+      } catch (error) {
+        console.error("Error fetching data from Firestore:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
+  console.log(orders);
   const indexOfLastOrder = currentPage * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
 
@@ -130,8 +161,8 @@ const Orders: React.FC = () => {
                 {currentOrders.map((order) => (
                   <Tr key={order.id}>
                     <Td fontWeight="medium">#{order.id}</Td>
-                    <Td>{order.customer}</Td>
-                    <Td>${order.total.toFixed(2)}</Td>
+                    <Td>{order.name}</Td>
+                    <Td></Td>
                     <Td><StatusBadge status={order.status} /></Td>
                     <Td>
                       <Select
@@ -140,7 +171,7 @@ const Orders: React.FC = () => {
                         onChange={(e) => handleStatusChange(order.id, e.target.value as Order['status'])}
                         width="150px"
                       >
-                        {['Pending', 'Processing', 'Shipped', 'Delivered'].map((status) => (
+                        {['Pending', 'Processing'].map((status) => (
                           <option key={status} value={status}>
                             {status}
                           </option>
@@ -200,8 +231,8 @@ const Orders: React.FC = () => {
             {selectedOrder && (
               <Box>
                 <Text><strong>Order ID:</strong> #{selectedOrder.id}</Text>
-                <Text><strong>Customer:</strong> {selectedOrder.customer}</Text>
-                <Text><strong>Total:</strong> ${selectedOrder.total.toFixed(2)}</Text>
+                <Text><strong>Customer:</strong> {selectedOrder.name}</Text>
+                <Text><strong>Total:</strong> </Text>
                 <Text><strong>Status:</strong> <StatusBadge status={selectedOrder.status} /></Text>
                 {/* Add more order details here as needed */}
               </Box>
