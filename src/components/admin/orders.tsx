@@ -2,9 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import {
   Box, Heading, Text, Table, Thead, Tbody, Tr, Th, Td, Select, Flex, Button,
-  ChakraProvider, Badge, useColorModeValue, Menu, MenuButton, MenuList, MenuItem
+  ChakraProvider, Badge, useColorModeValue, Menu, MenuButton, MenuList, MenuItem,
+  Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton,
+  useDisclosure
 } from '@chakra-ui/react';
-import { ChevronDownIcon } from '@chakra-ui/icons';
+import { ChevronDownIcon, ViewIcon } from '@chakra-ui/icons';
 import Sidebar from '../../components/admin/sidebar/sidebar';
 
 // Define order types
@@ -47,6 +49,8 @@ const Orders: React.FC = () => {
   const [ordersPerPage] = useState<number>(10);
   const [sortField, setSortField] = useState<keyof Order>('id');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     // Generate orders on the client side
@@ -85,6 +89,11 @@ const Orders: React.FC = () => {
     }
   };
 
+  const handleViewDetails = (order: Order) => {
+    setSelectedOrder(order);
+    onOpen();
+  };
+
   const bg = useColorModeValue('white', 'gray.800');
   const borderColor = useColorModeValue('gray.200', 'gray.700');
 
@@ -93,7 +102,7 @@ const Orders: React.FC = () => {
       <Flex>
         <Sidebar />
         <Box flex={1} p={8}>
-          <Heading as="h1" size="xl" mb={6} color="blue.600">Tour Bookings</Heading>
+        <Heading mb={6}>Manage Your Orders</Heading>
           <Box bg={bg} borderRadius="lg" boxShadow="md" p={6} borderWidth={1} borderColor={borderColor}>
             <Text fontSize="lg" fontWeight="medium" mb={4}>Total Orders: {totalOrders}</Text>
             <Table variant="simple">
@@ -114,6 +123,7 @@ const Orders: React.FC = () => {
                     </Th>
                   ))}
                   <Th>Action</Th>
+                  <Th>Details</Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -136,6 +146,16 @@ const Orders: React.FC = () => {
                           </option>
                         ))}
                       </Select>
+                    </Td>
+                    <Td>
+                      <Button
+                        leftIcon={<ViewIcon />}
+                        size="sm"
+                        onClick={() => handleViewDetails(order)}
+                        colorScheme="teal"
+                      >
+                        View Details
+                      </Button>
                     </Td>
                   </Tr>
                 ))}
@@ -169,6 +189,31 @@ const Orders: React.FC = () => {
           </Box>
         </Box>
       </Flex>
+
+      {/* Order Details Modal */}
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Order Details</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            {selectedOrder && (
+              <Box>
+                <Text><strong>Order ID:</strong> #{selectedOrder.id}</Text>
+                <Text><strong>Customer:</strong> {selectedOrder.customer}</Text>
+                <Text><strong>Total:</strong> ${selectedOrder.total.toFixed(2)}</Text>
+                <Text><strong>Status:</strong> <StatusBadge status={selectedOrder.status} /></Text>
+                {/* Add more order details here as needed */}
+              </Box>
+            )}
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </ChakraProvider>
   );
 };
