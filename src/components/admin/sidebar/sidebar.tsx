@@ -80,7 +80,7 @@ const Sidebar = () => {
         <Divider mb={4} />
 
         <VStack spacing={0} align="stretch">
-          <NavItem icon={FiList} label="Orders" onClick={() => router.push('/admin')} />
+          <NavItem icon={FiList} label="Bookings" onClick={() => router.push('/admin')} />
           <NavItem icon={FiPackage} label="Packages" onClick={() => router.push('/admin/addPackages')} />
           <NavItem icon={FiMapPin} label="Destinations" onClick={() => router.push('/admin/addDestinations')} />
         </VStack>

@@ -28,13 +28,6 @@ type Order = {
   description: string;
 };
 
-const generateMockOrders = (): Order[] => Array.from({ length: 100 }, (_, i) => ({
-  id: i + 1,
-  customer: `Customer ${i + 1}`,
-  total: Math.floor(Math.random() * 1000) + 50,
-  status: ['Pending', 'Processing', 'Shipped', 'Delivered'][Math.floor(Math.random() * 4)] as Order['status'],
-}));
-
 interface StatusBadgeProps {
   status: 'Pending' | 'Processing' | 'Shipped' | 'Delivered';
 }
@@ -133,7 +126,7 @@ const Orders: React.FC = () => {
       <Flex>
         <Sidebar />
         <Box flex={1} p={8}>
-        <Heading mb={6}>Manage Your Orders</Heading>
+        <Heading mb={6}>Manage Your Bookings</Heading>
           <Box bg={bg} borderRadius="lg" boxShadow="md" p={6} borderWidth={1} borderColor={borderColor}>
             <Text fontSize="lg" fontWeight="medium" mb={4}>Total Orders: {totalOrders}</Text>
             <Table variant="simple">
