@@ -13,12 +13,6 @@ import { getDocs, collection, query, where, limit } from "firebase/firestore";
 // Define order types
 
 
-interface Order {
-  id: string;
-  customer: string;
-  total: number;
-  status: 'Pending' | 'Processing';
-}
 
 type Order = {
   id: string;
@@ -26,6 +20,8 @@ type Order = {
   category: string;
   price: number;
   description: string;
+  customer: string;
+  status: 'Pending' | 'Processing';
 };
 
 interface StatusBadgeProps {
@@ -94,7 +90,7 @@ const Orders: React.FC = () => {
   const totalOrders = orders.length;
   const totalPages = Math.ceil(totalOrders / ordersPerPage);
 
-  const handleStatusChange = (orderId: number, newStatus: Order['status']) => {
+  const handleStatusChange = (orderId: string, newStatus: Order['status']) => {
     setOrders(orders.map(order =>
       order.id === orderId ? { ...order, status: newStatus } : order
     ));

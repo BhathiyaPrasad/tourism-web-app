@@ -17,6 +17,16 @@ import { FiPackage, FiMapPin, FiList, FiMenu, FiChevronRight } from 'react-icons
 import { IoCloseSharp } from "react-icons/io5";
 import { useRouter } from 'next/navigation';
 
+type NavItemProps = {
+  icon: IconType;   // Type for the icon, assuming you're using react-icons
+  label: string;    // Label should be a string
+  onClick: () => void; // onClick should be a function
+  isOpen: boolean; // Assuming this is passed from parent component
+  iconColor?: string; // Optional prop for icon color
+  buttonHoverBg?: string; // Optional prop for button hover background
+};
+
+
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
@@ -28,7 +38,7 @@ const Sidebar = () => {
 
   const sidebarWidth = isOpen ? '240px' : '70px';
 
-  const NavItem = ({ icon, label, onClick }) => (
+  const NavItem: React.FC<NavItemProps> = ({ icon, label, onClick }) => (
     <Tooltip label={label} placement="right" isDisabled={isOpen}>
       <Button
         aria-label={label}
