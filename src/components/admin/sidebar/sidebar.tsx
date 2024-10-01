@@ -11,21 +11,21 @@ import {
   Text,
   Tooltip,
   Divider,
-  IconButton
+  IconButton,
 } from '@chakra-ui/react';
 import { FiPackage, FiMapPin, FiList, FiMenu, FiChevronRight } from 'react-icons/fi';
-import { IoCloseSharp } from "react-icons/io5";
+import { IoCloseSharp } from 'react-icons/io5';
 import { useRouter } from 'next/navigation';
+import { IconType } from 'react-icons'; // Make sure to import IconType
 
 type NavItemProps = {
-  icon: IconType;   // Type for the icon, assuming you're using react-icons
-  label: string;    // Label should be a string
-  onClick: () => void; // onClick should be a function
-  isOpen: boolean; // Assuming this is passed from parent component
-  iconColor?: string; // Optional prop for icon color
-  buttonHoverBg?: string; // Optional prop for button hover background
+  icon: IconType; // Correctly defined icon type
+  label: string;
+  onClick: () => void;
+  isOpen: boolean; // Ensure isOpen is part of the props
+  iconColor?: string;
+  buttonHoverBg?: string;
 };
-
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -90,9 +90,9 @@ const Sidebar = () => {
         <Divider mb={4} />
 
         <VStack spacing={0} align="stretch">
-          <NavItem icon={FiList} label="Bookings" onClick={() => router.push('/admin')} />
-          <NavItem icon={FiPackage} label="Packages" onClick={() => router.push('/admin/addPackages')} />
-          <NavItem icon={FiMapPin} label="Destinations" onClick={() => router.push('/admin/addDestinations')} />
+          <NavItem icon={FiList} label="Bookings" onClick={() => router.push('/admin')} isOpen={isOpen} />
+          <NavItem icon={FiPackage} label="Packages" onClick={() => router.push('/admin/addPackages')} isOpen={isOpen} />
+          <NavItem icon={FiMapPin} label="Destinations" onClick={() => router.push('/admin/addDestinations')} isOpen={isOpen} />
         </VStack>
       </Box>
 
