@@ -1,6 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getDocs, collection, query, where } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 import {
   Box,
   Heading,
@@ -8,22 +10,12 @@ import {
   Table,
   Thead,
   Tbody,
+  Flex,
   Tr,
   Th,
   Td,
-  Select,
-  Flex,
   Button,
   ChakraProvider,
-  Badge,
-  useColorModeValue,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Input,
-  VStack,
-  HStack,
   useDisclosure,
   Modal,
   ModalOverlay,
@@ -32,28 +24,57 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Input,
+  VStack,
 } from '@chakra-ui/react';
-import { ChevronDownIcon, AddIcon, EditIcon } from '@chakra-ui/icons';
+import { AddIcon, EditIcon } from '@chakra-ui/icons';
 import Sidebar from '../sidebar/sidebar';
 
-const PackageManagement = () => {
-  const [packages, setPackages] = useState([
-    { id: 1, name: 'Basic Package', price: 9.99, description: 'Essential features' },
-    { id: 2, name: 'Pro Package', price: 19.99, description: 'Advanced features' },
-  ]);
-  const [selectedPackage, setSelectedPackage] = useState(null);
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isEditing, setIsEditing] = useState(false);
+type Order = {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  description: string;
+  customer: string;
+  status: 'Pending' | 'Processing';
+};
 
-  const handleAddPackage = (newPackage) => {
-    setPackages([...packages, { ...newPackage, id: packages.length + 1 }]);
+const PackageManagement = () => {
+  const [packages, setPackages] = useState<Order[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [selectedPackage, setSelectedPackage] = useState<Order | null>(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const OrganizationID = 'packages';
+        const itemsRef = collection(db, OrganizationID);
+        const itemsQuery = query(itemsRef, where("id", "!=", ""));
+        const querySnapshot = await getDocs(itemsQuery);
+        const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Order));
+        setPackages(data);
+      } catch (error) {
+        console.error("Error fetching data from Firestore:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleAddPackage = (newPackage: Order) => {
+    setPackages([...packages, { ...newPackage, id: `${packages.length + 1}` }]); // Assuming ID is a string
   };
 
-  const handleEditPackage = (updatedPackage) => {
+  const handleEditPackage = (updatedPackage: Order) => {
     setPackages(packages.map(pkg => pkg.id === updatedPackage.id ? updatedPackage : pkg));
   };
 
-  const openEditModal = (pkg) => {
+  const openEditModal = (pkg: Order) => {
     setSelectedPackage(pkg);
     setIsEditing(true);
     onOpen();
@@ -86,7 +107,7 @@ const PackageManagement = () => {
             <Tbody>
               {packages.map((pkg) => (
                 <Tr key={pkg.id}>
-                  <Td>{pkg.name}</Td>
+                  <Td>{pkg.category}</Td>
                   <Td>${pkg.price}</Td>
                   <Td>{pkg.description}</Td>
                   <Td>
@@ -111,10 +132,26 @@ const PackageManagement = () => {
   );
 };
 
-const PackageFormModal = ({ isOpen, onClose, onSubmit, initialData, isEditing }) => {
-  const [formData, setFormData] = useState(initialData || { name: '', price: '', description: '' });
+interface PackageFormModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: (data: Order) => void;
+  initialData: Order | null;
+  isEditing: boolean;
+}
 
-  const handleChange = (e) => {
+const PackageFormModal = ({ isOpen, onClose, onSubmit, initialData, isEditing }: PackageFormModalProps) => {
+  const [formData, setFormData] = useState<Order>({
+    id: initialData?.id || '',
+    name: initialData?.name || '',
+    category: initialData?.category || '',
+    price: initialData?.price || 0,
+    description: initialData?.description || '',
+    customer: initialData?.customer || '',
+    status: initialData?.status || 'Pending',
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };

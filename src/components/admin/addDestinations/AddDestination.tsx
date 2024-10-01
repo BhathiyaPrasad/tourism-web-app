@@ -26,7 +26,7 @@ import {
 } from '@chakra-ui/react';
 import { AddIcon, EditIcon } from '@chakra-ui/icons';
 import Sidebar from '../sidebar/sidebar';
-
+import { db } from "@/lib/firebase";
 // Define a type for the destination/package
 interface Destination {
   id: number;
