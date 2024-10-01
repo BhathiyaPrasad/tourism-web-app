@@ -2,25 +2,27 @@
 import React, { useState, useEffect } from 'react';
 import {
   Box, Heading, Text, Table, Thead, Tbody, Tr, Th, Td, Select, Flex, Button,
-  ChakraProvider, Badge, useColorModeValue, Menu, MenuButton, MenuList, MenuItem
+  ChakraProvider, Badge, useColorModeValue, Menu, MenuButton, MenuList, MenuItem,
+  Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton,
+  useDisclosure
 } from '@chakra-ui/react';
-import { ChevronDownIcon } from '@chakra-ui/icons';
+import { ChevronDownIcon, ViewIcon } from '@chakra-ui/icons';
 import Sidebar from '../../components/admin/sidebar/sidebar';
-
+import { db } from "@/lib/firebase";
+import { getDocs, collection, query, where, limit } from "firebase/firestore";
 // Define order types
-interface Order {
-  id: number;
-  customer: string;
-  total: number;
-  status: 'Pending' | 'Processing' | 'Shipped' | 'Delivered';
-}
 
-const generateMockOrders = (): Order[] => Array.from({ length: 100 }, (_, i) => ({
-  id: i + 1,
-  customer: `Customer ${i + 1}`,
-  total: Math.floor(Math.random() * 1000) + 50,
-  status: ['Pending', 'Processing', 'Shipped', 'Delivered'][Math.floor(Math.random() * 4)] as Order['status'],
-}));
+
+
+type Order = {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  description: string;
+  customer: string;
+  status: 'Pending' | 'Processing';
+};
 
 interface StatusBadgeProps {
   status: 'Pending' | 'Processing' | 'Shipped' | 'Delivered';
@@ -47,12 +49,34 @@ const Orders: React.FC = () => {
   const [ordersPerPage] = useState<number>(10);
   const [sortField, setSortField] = useState<keyof Order>('id');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [loading , setLoading] = useState(true);
 
   useEffect(() => {
-    // Generate orders on the client side
-    setOrders(generateMockOrders());
+    const fetchData = async () => {
+      try {
+        const OrganizationID = 'orders'
+        const itemsRef = collection(db, OrganizationID);
+        const itemsQuery = query(
+          itemsRef,
+          where("id", "!=", "")
+         
+        );
+        const querySnapshot = await getDocs(itemsQuery);
+        const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Order));
+        setOrders(data);
+      } catch (error) {
+        console.error("Error fetching data from Firestore:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
+  console.log(orders);
   const indexOfLastOrder = currentPage * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
 
@@ -66,7 +90,7 @@ const Orders: React.FC = () => {
   const totalOrders = orders.length;
   const totalPages = Math.ceil(totalOrders / ordersPerPage);
 
-  const handleStatusChange = (orderId: number, newStatus: Order['status']) => {
+  const handleStatusChange = (orderId: string, newStatus: Order['status']) => {
     setOrders(orders.map(order =>
       order.id === orderId ? { ...order, status: newStatus } : order
     ));
@@ -85,6 +109,11 @@ const Orders: React.FC = () => {
     }
   };
 
+  const handleViewDetails = (order: Order) => {
+    setSelectedOrder(order);
+    onOpen();
+  };
+
   const bg = useColorModeValue('white', 'gray.800');
   const borderColor = useColorModeValue('gray.200', 'gray.700');
 
@@ -93,7 +122,7 @@ const Orders: React.FC = () => {
       <Flex>
         <Sidebar />
         <Box flex={1} p={8}>
-          <Heading as="h1" size="xl" mb={6} color="blue.600">Tour Bookings</Heading>
+        <Heading mb={6}>Manage Your Bookings</Heading>
           <Box bg={bg} borderRadius="lg" boxShadow="md" p={6} borderWidth={1} borderColor={borderColor}>
             <Text fontSize="lg" fontWeight="medium" mb={4}>Total Orders: {totalOrders}</Text>
             <Table variant="simple">
@@ -114,14 +143,15 @@ const Orders: React.FC = () => {
                     </Th>
                   ))}
                   <Th>Action</Th>
+                  <Th>Details</Th>
                 </Tr>
               </Thead>
               <Tbody>
                 {currentOrders.map((order) => (
                   <Tr key={order.id}>
                     <Td fontWeight="medium">#{order.id}</Td>
-                    <Td>{order.customer}</Td>
-                    <Td>${order.total.toFixed(2)}</Td>
+                    <Td>{order.name}</Td>
+                    <Td></Td>
                     <Td><StatusBadge status={order.status} /></Td>
                     <Td>
                       <Select
@@ -130,12 +160,22 @@ const Orders: React.FC = () => {
                         onChange={(e) => handleStatusChange(order.id, e.target.value as Order['status'])}
                         width="150px"
                       >
-                        {['Pending', 'Processing', 'Shipped', 'Delivered'].map((status) => (
+                        {['Pending', 'Processing'].map((status) => (
                           <option key={status} value={status}>
                             {status}
                           </option>
                         ))}
                       </Select>
+                    </Td>
+                    <Td>
+                      <Button
+                        leftIcon={<ViewIcon />}
+                        size="sm"
+                        onClick={() => handleViewDetails(order)}
+                        colorScheme="teal"
+                      >
+                        View Details
+                      </Button>
                     </Td>
                   </Tr>
                 ))}
@@ -169,6 +209,31 @@ const Orders: React.FC = () => {
           </Box>
         </Box>
       </Flex>
+
+      {/* Order Details Modal */}
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Order Details</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            {selectedOrder && (
+              <Box>
+                <Text><strong>Order ID:</strong> #{selectedOrder.id}</Text>
+                <Text><strong>Customer:</strong> {selectedOrder.name}</Text>
+                <Text><strong>Total:</strong> </Text>
+                <Text><strong>Status:</strong> <StatusBadge status={selectedOrder.status} /></Text>
+                {/* Add more order details here as needed */}
+              </Box>
+            )}
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </ChakraProvider>
   );
 };
