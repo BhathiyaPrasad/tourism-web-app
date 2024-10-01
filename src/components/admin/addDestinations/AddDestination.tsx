@@ -1,5 +1,4 @@
-'use client';
-
+'use client'
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import {
   Box,
@@ -31,17 +30,20 @@ import { collection, getDocs, query, where, addDoc, doc, updateDoc } from 'fireb
 
 // Define a type for the destination/package
 interface Destination {
-  id: string; // Assuming the ID from Firestore is a string
+  id: string; // Firestore document ID
   name: string;
   category: string;
   description: string;
   price?: number; // Optional if price is not always used
+  place:string;
+  location:string;
 }
 
+// Define a type for the modal props
 interface PackageFormModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (data: Destination) => Promise<void>; // Ensure onSubmit is a Promise
+  onSubmit: (data: Destination) => Promise<void>;
   initialData: Destination | null;
   isEditing: boolean;
 }
@@ -60,7 +62,7 @@ const DestinationManagement = () => {
         const itemsRef = collection(db, OrganizationID);
         const itemsQuery = query(itemsRef, where("id", "!=", ""));
         const querySnapshot = await getDocs(itemsQuery);
-        const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...(doc.data() as Destination) })); // Ensure to cast to Destination
+        const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...(doc.data() as Omit<Destination, 'id'>) }));
         setDestinations(data);
       } catch (error) {
         console.error("Error fetching data from Firestore:", error);
@@ -73,9 +75,19 @@ const DestinationManagement = () => {
   }, []);
 
   const handleAddDestination = async (newDestination: Destination) => {
-    const docRef = await addDoc(collection(db, 'gallery'), newDestination);
-    setDestinations([...destinations, { ...newDestination, id: docRef.id }]); // Add the Firestore ID
+    // First, add the document to the 'gallery' collection
+    const docRef = await addDoc(collection(db, 'gallery'), {
+      ...newDestination, // Spread the existing newDestination data
+      id: '', // Set 'id' to an empty string for now, will update later
+    });
+  
+    // Now update the same document with the auto-generated docRef.id
+    await updateDoc(docRef, { id: docRef.id });
+  
+    // Update the local state with the new destination and its Firestore ID
+    setDestinations([...destinations, { ...newDestination, id: docRef.id }]);
   };
+  
 
   const handleEditDestination = async (updatedDestination: Destination) => {
     const docRef = doc(db, 'gallery', updatedDestination.id);
@@ -118,10 +130,9 @@ const DestinationManagement = () => {
               {destinations.map(pkg => (
                 <Tr key={pkg.id}>
                   <Td>{pkg.id}</Td> 
-                  <Td>{pkg.place}</Td> {/* Use pkg.name instead of pkg.place */}
+                  <Td>{pkg.place}</Td>
                   <Td>{pkg.location}</Td>
                   <Td>{pkg.description}</Td>
-
                   <Td>
                     <Button size="sm" leftIcon={<EditIcon />} onClick={() => openEditModal(pkg)}>
                       Edit
@@ -167,17 +178,23 @@ const PackageFormModal: React.FC<PackageFormModalProps> = ({ isOpen, onClose, on
           <VStack spacing={4}>
             <Input
               name="name"
-              placeholder="Package Name"
+              placeholder="Destination Name"
               value={formData.name}
               onChange={handleChange}
             />
             <Input
-              name="category"
-              placeholder="Category"
-              value={formData.category}
+              name="place"
+              placeholder="Place Name"
+              value={formData.place}
               onChange={handleChange}
             />
             <Input
+              name="description"
+              placeholder="Location"
+              value={formData.location}
+              onChange={handleChange}
+            />
+             <Input
               name="description"
               placeholder="Description"
               value={formData.description}
