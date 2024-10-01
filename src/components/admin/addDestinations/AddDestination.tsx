@@ -1,30 +1,20 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import {
   Box,
   Heading,
-  Text,
   Table,
   Thead,
   Tbody,
   Tr,
   Th,
   Td,
-  Select,
   Flex,
   Button,
   ChakraProvider,
-  Badge,
-  useColorModeValue,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
   Input,
   VStack,
-  HStack,
-  useDisclosure,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -32,28 +22,46 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  useDisclosure,
 } from '@chakra-ui/react';
-import { ChevronDownIcon, AddIcon, EditIcon } from '@chakra-ui/icons';
+import { AddIcon, EditIcon } from '@chakra-ui/icons';
 import Sidebar from '../sidebar/sidebar';
 
+// Define a type for the destination/package
+interface Destination {
+  id: number;
+  name: string;
+  category: string;
+  description: string;
+  price?: number; // Optional if price is not always used
+}
+
+interface PackageFormModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: (data: Destination) => void;
+  initialData: Destination | null;
+  isEditing: boolean;
+}
+
 const DestinationManagement = () => {
-  const [destinations, setDestinations] = useState([
+  const [destinations, setDestinations] = useState<Destination[]>([
     { id: 1, name: 'Pinnawala', category: "Animal", description: 'Essential features' },
     { id: 2, name: 'Kandy', category: "Ancient", description: 'Advanced features' },
   ]);
-  const [selectedDestination, setSelectedDestination] = useState(null);
+  const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isEditing, setIsEditing] = useState(false);
 
-  const handleAddPackage = (newPackage) => {
+  const handleAddPackage = (newPackage: Destination) => {
     setDestinations([...destinations, { ...newPackage, id: destinations.length + 1 }]);
   };
 
-  const handleEditPackage = (updatedPackage) => {
+  const handleEditPackage = (updatedPackage: Destination) => {
     setDestinations(destinations.map(pkg => pkg.id === updatedPackage.id ? updatedPackage : pkg));
   };
 
-  const openEditModal = (pkg) => {
+  const openEditModal = (pkg: Destination) => {
     setSelectedDestination(pkg);
     setIsEditing(true);
     onOpen();
@@ -78,7 +86,7 @@ const DestinationManagement = () => {
             <Thead>
               <Tr>
                 <Th>Name</Th>
-                <Th>category</Th>
+                <Th>Category</Th>
                 <Th>Description</Th>
                 <Th>Actions</Th>
               </Tr>
@@ -111,10 +119,10 @@ const DestinationManagement = () => {
   );
 };
 
-const PackageFormModal = ({ isOpen, onClose, onSubmit, initialData, isEditing }) => {
-  const [formData, setFormData] = useState(initialData || { name: '', price: '', description: '' });
+const PackageFormModal: React.FC<PackageFormModalProps> = ({ isOpen, onClose, onSubmit, initialData, isEditing }) => {
+  const [formData, setFormData] = useState<Destination>(initialData || { id: 0, name: '', category: '', description: '' });
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -139,10 +147,9 @@ const PackageFormModal = ({ isOpen, onClose, onSubmit, initialData, isEditing })
               onChange={handleChange}
             />
             <Input
-              name="price"
-              placeholder="Price"
-              type="number"
-              value={formData.price}
+              name="category"
+              placeholder="Category"
+              value={formData.category}
               onChange={handleChange}
             />
             <Input
