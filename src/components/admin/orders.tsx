@@ -22,6 +22,11 @@ type Order = {
   description: string;
   customer: string;
   status: 'Pending' | 'Processing';
+  accommodation: string;
+  country:string;
+  tourType:string;
+  email:string;
+  
 };
 
 interface StatusBadgeProps {
@@ -221,6 +226,12 @@ const Orders: React.FC = () => {
               <Box>
                 <Text><strong>Order ID:</strong> #{selectedOrder.id}</Text>
                 <Text><strong>Customer:</strong> {selectedOrder.name}</Text>
+                <Text><strong>Country:</strong> {selectedOrder.country}</Text>
+                <Text><strong>Email:</strong> {selectedOrder.email}</Text>
+                <Text><strong>Package:</strong> {selectedOrder.tourType}</Text>
+                <Text><strong>Additional Req:</strong> {selectedOrder.country}</Text>
+                <Text><strong>Accomodation:</strong> {selectedOrder.accommodation}</Text>
+                
                 <Text><strong>Total:</strong> </Text>
                 <Text><strong>Status:</strong> <StatusBadge status={selectedOrder.status} /></Text>
                 {/* Add more order details here as needed */}
