@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import {
-  Box, Heading, Text, Table, Thead, Tbody, Tr, Th, Td, Select, Flex, Button,
+  Box, Heading, Text, Table, Thead, Grid, Tbody, Tr, Th, Td, Select, Flex, Button,
   ChakraProvider, Badge, useColorModeValue, Menu, MenuButton, MenuList, MenuItem,
   Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton,
   useDisclosure
@@ -22,6 +22,13 @@ type Order = {
   description: string;
   customer: string;
   status: 'Pending' | 'Processing';
+  accommodation: string;
+  country:string;
+  tourType:string;
+  email:string;
+  additionalRequirements:string;
+  total:number;
+  
 };
 
 interface StatusBadgeProps {
@@ -218,13 +225,49 @@ const Orders: React.FC = () => {
           <ModalCloseButton />
           <ModalBody>
             {selectedOrder && (
-              <Box>
-                <Text><strong>Order ID:</strong> #{selectedOrder.id}</Text>
-                <Text><strong>Customer:</strong> {selectedOrder.name}</Text>
-                <Text><strong>Total:</strong> </Text>
-                <Text><strong>Status:</strong> <StatusBadge status={selectedOrder.status} /></Text>
-                {/* Add more order details here as needed */}
-              </Box>
+              <Box 
+              p={6} 
+              border="1px solid" 
+              borderColor="gray.200" 
+              borderRadius="md" 
+              shadow="md"
+              backgroundColor="white"
+            >
+              <Text fontSize="xl" fontWeight="bold" mb={4}>
+                Order Details
+              </Text>
+        
+              <Grid templateColumns="1fr 2fr" gap={4} mb={4}>
+                <Text fontWeight="semibold">Order ID:</Text>
+                <Text>#{selectedOrder.id}</Text>
+        
+                <Text fontWeight="semibold">Customer:</Text>
+                <Text>{selectedOrder.name}</Text>
+        
+                <Text fontWeight="semibold">Country:</Text>
+                <Text>{selectedOrder.country}</Text>
+        
+                <Text fontWeight="semibold">Email:</Text>
+                <Text>{selectedOrder.email}</Text>
+        
+                <Text fontWeight="semibold">Package:</Text>
+                <Text>{selectedOrder.tourType}</Text>
+        
+                <Text fontWeight="semibold">Additional Req:</Text>
+                <Text>{selectedOrder.additionalRequirements || "N/A"}</Text>
+        
+                <Text fontWeight="semibold">Accommodation:</Text>
+                <Text>{selectedOrder.accommodation}</Text>
+        
+                <Text fontWeight="semibold">Total:</Text>
+                <Text>${selectedOrder.total || "TBD"}</Text>
+        
+                <Text fontWeight="semibold">Status:</Text>
+                <Flex align="center">
+                  <StatusBadge status={selectedOrder.status} />
+                </Flex>
+              </Grid>
+            </Box>
             )}
           </ModalBody>
           <ModalFooter>

@@ -4,7 +4,7 @@ import { ChakraProvider, Box, VStack, HStack, Text, Input, Textarea, Button, For
 import logo from '../../../public/assets/jagathlogo4.png'
 import Image from 'next/image'
 import TawkToChat from '@/components/common/chat/chat'
-import { collection, where, query, getDocs, doc, addDoc } from 'firebase/firestore'
+import { collection, where, query, getDocs, doc, addDoc , setDoc } from 'firebase/firestore'
 import { db } from '../../lib/firebase';
 
 
@@ -63,12 +63,14 @@ type Package = {
 const TourBookingForm = () => {
   const OrganizationID = 'packages'
   const [formData, setFormData] = useState({
+    id:'',
     name: '',
     email: '',
+    number:0,
     country: '',
     arrivalDate: '',
     departureDate: '',
-    adults: 2,
+    adults: 1,
     children: 0,
     tourType: '',
     accommodation: '',
@@ -134,12 +136,13 @@ const TourBookingForm = () => {
   
     try {
       // Saving form data to Firestore
-      const orgDocId = 'orders';  // Collection name
+      const orgDocId = 'orders';  
       const ordersRef = collection(db, orgDocId);
-  
-      await addDoc(ordersRef, {
+
+      const data = {
         name: formData.name,
         email: formData.email,
+        number: formData.number,
         country: formData.country,
         arrivalDate: formData.arrivalDate,
         departureDate: formData.departureDate,
@@ -149,19 +152,28 @@ const TourBookingForm = () => {
         accommodation: formData.accommodation,
         additionalRequirements: formData.additionalRequirements,
         createdAt: new Date(),
-      });
+      }
+      const docRef =  await addDoc(ordersRef, data);
+      const docId = docRef.id;
+      
+      await setDoc(docRef, {
+        ...data,
+        id:docId
+      })
   
       console.log('Order saved to Firestore successfully.');
       alert('Booking information saved successfully!');
       
       // Reset form (optional)
       setFormData({
+        id:'',
         name: '',
         email: '',
+        number:0,
         country: '',
         arrivalDate: '',
         departureDate: '',
-        adults: 2,
+        adults: 1,
         children: 0,
         tourType: '',
         accommodation: '',
@@ -264,8 +276,21 @@ const TourBookingForm = () => {
                     transition="all 0.2s"
                   />
                 </FormControl>
+               
               </HStack>
-
+              <FormControl isRequired flex={1} minW={{ base: '100%', md: '40%' }}>
+                  <FormLabel htmlFor="number">Mobile Number</FormLabel>
+                  <Input
+                    id="number"
+                    name="number"
+                    type="number"
+                    value={formData.number}
+                    onChange={handleInputChange}
+                    focusBorderColor="brand.400"
+                    _hover={{ borderColor: 'brand.300' }}
+                    transition="all 0.2s"
+                  />
+                </FormControl>
               <FormControl>
                 <FormLabel htmlFor="country">Country</FormLabel>
                 <Input

@@ -1,6 +1,5 @@
-'use client';
-
-import React, { useState, ChangeEvent } from 'react';
+'use client'
+import React, { useState, ChangeEvent, useEffect } from 'react';
 import {
   Box,
   Heading,
@@ -27,38 +26,73 @@ import {
 import { AddIcon, EditIcon } from '@chakra-ui/icons';
 import Sidebar from '../sidebar/sidebar';
 import { db } from "@/lib/firebase";
+import { collection, getDocs, query, where, addDoc, doc, updateDoc } from 'firebase/firestore';
+
 // Define a type for the destination/package
 interface Destination {
-  id: number;
+  id: string; // Firestore document ID
   name: string;
   category: string;
   description: string;
   price?: number; // Optional if price is not always used
+  place:string;
+  location:string;
 }
 
+// Define a type for the modal props
 interface PackageFormModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (data: Destination) => void;
+  onSubmit: (data: Destination) => Promise<void>;
   initialData: Destination | null;
   isEditing: boolean;
 }
 
 const DestinationManagement = () => {
-  const [destinations, setDestinations] = useState<Destination[]>([
-    { id: 1, name: 'Pinnawala', category: "Animal", description: 'Essential features' },
-    { id: 2, name: 'Kandy', category: "Ancient", description: 'Advanced features' },
-  ]);
+  const [destinations, setDestinations] = useState<Destination[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isEditing, setIsEditing] = useState(false);
 
-  const handleAddPackage = (newPackage: Destination) => {
-    setDestinations([...destinations, { ...newPackage, id: destinations.length + 1 }]);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const OrganizationID = 'gallery';
+        const itemsRef = collection(db, OrganizationID);
+        const itemsQuery = query(itemsRef, where("id", "!=", ""));
+        const querySnapshot = await getDocs(itemsQuery);
+        const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...(doc.data() as Omit<Destination, 'id'>) }));
+        setDestinations(data);
+      } catch (error) {
+        console.error("Error fetching data from Firestore:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const handleEditPackage = (updatedPackage: Destination) => {
-    setDestinations(destinations.map(pkg => pkg.id === updatedPackage.id ? updatedPackage : pkg));
+    fetchData();
+  }, []);
+
+  const handleAddDestination = async (newDestination: Destination) => {
+    // First, add the document to the 'gallery' collection
+    const docRef = await addDoc(collection(db, 'gallery'), {
+      ...newDestination, // Spread the existing newDestination data
+      id: '', // Set 'id' to an empty string for now, will update later
+    });
+  
+    // Now update the same document with the auto-generated docRef.id
+    await updateDoc(docRef, { id: docRef.id });
+  
+    // Update the local state with the new destination and its Firestore ID
+    setDestinations([...destinations, { ...newDestination, id: docRef.id }]);
+  };
+  
+
+  const handleEditDestination = async (updatedDestination: Destination) => {
+    const docRef = doc(db, 'gallery', updatedDestination.id);
+    await updateDoc(docRef, { ...updatedDestination });
+    setDestinations(destinations.map(pkg => (pkg.id === updatedDestination.id ? updatedDestination : pkg)));
   };
 
   const openEditModal = (pkg: Destination) => {
@@ -85,17 +119,19 @@ const DestinationManagement = () => {
           <Table variant="simple">
             <Thead>
               <Tr>
+                <Th>Id</Th>
                 <Th>Name</Th>
-                <Th>Category</Th>
+                <Th>Location</Th>
                 <Th>Description</Th>
-                <Th>Actions</Th>
+                <Th>Action</Th>
               </Tr>
             </Thead>
             <Tbody>
-              {destinations.map((pkg) => (
+              {destinations.map(pkg => (
                 <Tr key={pkg.id}>
-                  <Td>{pkg.name}</Td>
-                  <Td>{pkg.category}</Td>
+                  <Td>{pkg.id}</Td> 
+                  <Td>{pkg.place}</Td>
+                  <Td>{pkg.location}</Td>
                   <Td>{pkg.description}</Td>
                   <Td>
                     <Button size="sm" leftIcon={<EditIcon />} onClick={() => openEditModal(pkg)}>
@@ -109,7 +145,7 @@ const DestinationManagement = () => {
           <PackageFormModal
             isOpen={isOpen}
             onClose={onClose}
-            onSubmit={isEditing ? handleEditPackage : handleAddPackage}
+            onSubmit={isEditing ? handleEditDestination : handleAddDestination}
             initialData={selectedDestination}
             isEditing={isEditing}
           />
@@ -120,15 +156,15 @@ const DestinationManagement = () => {
 };
 
 const PackageFormModal: React.FC<PackageFormModalProps> = ({ isOpen, onClose, onSubmit, initialData, isEditing }) => {
-  const [formData, setFormData] = useState<Destination>(initialData || { id: 0, name: '', category: '', description: '' });
+  const [formData, setFormData] = useState<Destination>(initialData || { id: '', name: '', category: '', description: '', place: '', location: '' });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = () => {
-    onSubmit(formData);
+  const handleSubmit = async () => {
+    await onSubmit(formData);
     onClose();
   };
 
@@ -142,17 +178,23 @@ const PackageFormModal: React.FC<PackageFormModalProps> = ({ isOpen, onClose, on
           <VStack spacing={4}>
             <Input
               name="name"
-              placeholder="Package Name"
+              placeholder="Destination Name"
               value={formData.name}
               onChange={handleChange}
             />
             <Input
-              name="category"
-              placeholder="Category"
-              value={formData.category}
+              name="place"
+              placeholder="Place Name"
+              value={formData.place}
               onChange={handleChange}
             />
             <Input
+              name="description"
+              placeholder="Location"
+              value={formData.location}
+              onChange={handleChange}
+            />
+             <Input
               name="description"
               placeholder="Description"
               value={formData.description}
