@@ -276,7 +276,9 @@ const TourBookingForm = () => {
                     transition="all 0.2s"
                   />
                 </FormControl>
-                <FormControl isRequired flex={1} minW={{ base: '100%', md: '40%' }}>
+               
+              </HStack>
+              <FormControl isRequired flex={1} minW={{ base: '100%', md: '40%' }}>
                   <FormLabel htmlFor="number">Mobile Number</FormLabel>
                   <Input
                     id="number"
@@ -289,8 +291,6 @@ const TourBookingForm = () => {
                     transition="all 0.2s"
                   />
                 </FormControl>
-              </HStack>
-
               <FormControl>
                 <FormLabel htmlFor="country">Country</FormLabel>
                 <Input
