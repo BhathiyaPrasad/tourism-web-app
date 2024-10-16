@@ -91,7 +91,7 @@ const DestinationManagement = () => {
 
   const handleEditDestination = async (updatedDestination: Destination) => {
     const docRef = doc(db, 'gallery', updatedDestination.id);
-    await updateDoc(docRef, updatedDestination);
+    await updateDoc(docRef, { ...updatedDestination });
     setDestinations(destinations.map(pkg => (pkg.id === updatedDestination.id ? updatedDestination : pkg)));
   };
 
@@ -156,7 +156,7 @@ const DestinationManagement = () => {
 };
 
 const PackageFormModal: React.FC<PackageFormModalProps> = ({ isOpen, onClose, onSubmit, initialData, isEditing }) => {
-  const [formData, setFormData] = useState<Destination>(initialData || { id: '', name: '', category: '', description: '' });
+  const [formData, setFormData] = useState<Destination>(initialData || { id: '', name: '', category: '', description: '', place: '', location: '' });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
