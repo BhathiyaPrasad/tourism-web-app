@@ -1,17 +1,11 @@
 import React from 'react'
 import AddPackage from '@/components/admin/addPackages/AddPackage'
 
-
-
 function addPackage() {
-
     return (
-
         <div>
-            <AddPackage />
+        <AddPackage />
         </div>
     )
-
 }
-
 export default addPackage
