@@ -28,6 +28,7 @@ type Order = {
   email:string;
   additionalRequirements:string;
   total:number;
+  number:number;
   
 };
 
@@ -243,7 +244,7 @@ const Orders: React.FC = () => {
         
                 <Text fontWeight="semibold">Customer:</Text>
                 <Text>{selectedOrder.name}</Text>
-                
+
                 <Text fontWeight="semibold">Mobile No:</Text>
                 <Text>{selectedOrder.number}</Text>
         
