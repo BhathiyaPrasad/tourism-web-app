@@ -243,6 +243,9 @@ const Orders: React.FC = () => {
         
                 <Text fontWeight="semibold">Customer:</Text>
                 <Text>{selectedOrder.name}</Text>
+                
+                <Text fontWeight="semibold">Mobile No:</Text>
+                <Text>{selectedOrder.number}</Text>
         
                 <Text fontWeight="semibold">Country:</Text>
                 <Text>{selectedOrder.country}</Text>
